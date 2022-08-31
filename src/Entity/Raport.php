@@ -26,7 +26,6 @@ class Raport
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $raport_date = null;
 
-<<<<<<< HEAD
     #[ORM\ManyToOne(inversedBy: 'raports')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category_id = null;
