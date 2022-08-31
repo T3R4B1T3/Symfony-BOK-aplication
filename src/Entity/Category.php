@@ -18,7 +18,11 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+<<<<<<< HEAD
     #[ORM\OneToMany(mappedBy: 'category_id', targetEntity: Raport::class, orphanRemoval: true)]
+=======
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Raport::class, orphanRemoval: true)]
+>>>>>>> origin/main
     private Collection $raports;
 
     public function __construct()
@@ -72,4 +76,8 @@ class Category
 
         return $this;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/main

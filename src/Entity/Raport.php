@@ -26,6 +26,7 @@ class Raport
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $raport_date = null;
 
+<<<<<<< HEAD
     #[ORM\ManyToOne(inversedBy: 'raports')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category_id = null;
@@ -40,6 +41,22 @@ class Raport
 
     #[ORM\Column(length: 255)]
     private ?string $user_agent = null;
+=======
+    #[ORM\Column(length: 255)]
+    private ?string $user_agent = null;
+
+    #[ORM\ManyToOne(inversedBy: 'raports')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $category = null;
+
+    #[ORM\ManyToOne(inversedBy: 'raports')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Shop $shop = null;
+
+    #[ORM\OneToOne(inversedBy: 'raport', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?RaportLog $raport_log = null;
+>>>>>>> origin/main
 
     public function getId(): ?int
     {
@@ -94,6 +111,7 @@ class Raport
         return $this;
     }
 
+<<<<<<< HEAD
     public function getCategoryId(): ?Category
     {
         return $this->category_id;
@@ -102,34 +120,7 @@ class Raport
     public function setCategoryId(?Category $category_id): self
     {
         $this->category_id = $category_id;
-
-        return $this;
-    }
-
-    public function getShopId(): ?Shop
-    {
-        return $this->shop_id;
-    }
-
-    public function setShopId(?Shop $shop_id): self
-    {
-        $this->shop_id = $shop_id;
-
-        return $this;
-    }
-
-    public function getRaportLogId(): ?RaportLog
-    {
-        return $this->raport_log_id;
-    }
-
-    public function setRaportLogId(RaportLog $raport_log_id): self
-    {
-        $this->raport_log_id = $raport_log_id;
-
-        return $this;
-    }
-
+=======
     public function getUserAgent(): ?string
     {
         return $this->user_agent;
@@ -138,6 +129,76 @@ class Raport
     public function setUserAgent(string $user_agent): self
     {
         $this->user_agent = $user_agent;
+>>>>>>> origin/main
+
+        return $this;
+    }
+
+<<<<<<< HEAD
+    public function getShopId(): ?Shop
+    {
+        return $this->shop_id;
+    }
+
+    public function setShopId(?Shop $shop_id): self
+    {
+        $this->shop_id = $shop_id;
+=======
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+>>>>>>> origin/main
+
+        return $this;
+    }
+
+<<<<<<< HEAD
+    public function getRaportLogId(): ?RaportLog
+    {
+        return $this->raport_log_id;
+    }
+
+    public function setRaportLogId(RaportLog $raport_log_id): self
+    {
+        $this->raport_log_id = $raport_log_id;
+=======
+    public function getShop(): ?Shop
+    {
+        return $this->shop;
+    }
+
+    public function setShop(?Shop $shop): self
+    {
+        $this->shop = $shop;
+>>>>>>> origin/main
+
+        return $this;
+    }
+
+<<<<<<< HEAD
+    public function getUserAgent(): ?string
+    {
+        return $this->user_agent;
+    }
+
+    public function setUserAgent(string $user_agent): self
+    {
+        $this->user_agent = $user_agent;
+=======
+    public function getRaportLog(): ?RaportLog
+    {
+        return $this->raport_log;
+    }
+
+    public function setRaportLog(RaportLog $raport_log): self
+    {
+        $this->raport_log = $raport_log;
+>>>>>>> origin/main
 
         return $this;
     }
