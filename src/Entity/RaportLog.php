@@ -26,7 +26,7 @@ class RaportLog
     #[ORM\Column(length: 255)]
     private ?string $state = null;
 
-    #[ORM\OneToOne(mappedBy: 'raport_log_id', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'raport_log', cascade: ['persist', 'remove'])]
     private ?Raport $raport = null;
 
     public function getId(): ?int

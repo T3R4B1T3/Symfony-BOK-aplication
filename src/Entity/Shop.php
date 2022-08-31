@@ -21,7 +21,7 @@ class Shop
     #[ORM\Column(length: 255)]
     private ?string $city = null;
 
-    #[ORM\OneToMany(mappedBy: 'shop_id', targetEntity: Raport::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'shop', targetEntity: Raport::class, orphanRemoval: true)]
     private Collection $raports;
 
     public function __construct()

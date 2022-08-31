@@ -31,15 +31,15 @@ class Raport
 
     #[ORM\ManyToOne(inversedBy: 'raports')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Category $category_id = null;
+    private ?Category $category = null;
 
     #[ORM\ManyToOne(inversedBy: 'raports')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Shop $shop_id = null;
+    private ?Shop $shop = null;
 
     #[ORM\OneToOne(inversedBy: 'raport', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?RaportLog $raport_log_id = null;
+    private ?RaportLog $raport_log = null;
 
     public function getId(): ?int
     {
@@ -106,38 +106,38 @@ class Raport
         return $this;
     }
 
-    public function getCategoryId(): ?Category
+    public function getCategory(): ?Category
     {
-        return $this->category_id;
+        return $this->category;
     }
 
-    public function setCategoryId(?Category $category_id): self
+    public function setCategory(?Category $category): self
     {
-        $this->category_id = $category_id;
+        $this->category = $category;
 
         return $this;
     }
 
-    public function getShopId(): ?Shop
+    public function getShop(): ?Shop
     {
-        return $this->shop_id;
+        return $this->shop;
     }
 
-    public function setShopId(?Shop $shop_id): self
+    public function setShop(?Shop $shop): self
     {
-        $this->shop_id = $shop_id;
+        $this->shop = $shop;
 
         return $this;
     }
 
-    public function getRaportLogId(): ?RaportLog
+    public function getRaportLog(): ?RaportLog
     {
-        return $this->raport_log_id;
+        return $this->raport_log;
     }
 
-    public function setRaportLogId(RaportLog $raport_log_id): self
+    public function setRaportLog(RaportLog $raport_log): self
     {
-        $this->raport_log_id = $raport_log_id;
+        $this->raport_log = $raport_log;
 
         return $this;
     }
