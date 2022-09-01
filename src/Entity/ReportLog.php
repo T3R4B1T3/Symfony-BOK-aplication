@@ -15,7 +15,7 @@ class ReportLog
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?bool $read = null;
+    private ?bool $seen = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $first_who_read = null;
@@ -34,14 +34,14 @@ class ReportLog
         return $this->id;
     }
 
-    public function isRead(): ?bool
+    public function isSeen(): ?bool
     {
-        return $this->read;
+        return $this->seen;
     }
 
-    public function setRead(bool $read): self
+    public function setSeen(bool $read): self
     {
-        $this->read = $read;
+        $this->seen = $read;
 
         return $this;
     }
