@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\RaportLog;
+use App\Entity\ReportLog;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<RaportLog>
+ * @extends ServiceEntityRepository<ReportLog>
  *
- * @method RaportLog|null find($id, $lockMode = null, $lockVersion = null)
- * @method RaportLog|null findOneBy(array $criteria, array $orderBy = null)
- * @method RaportLog[]    findAll()
- * @method RaportLog[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ReportLog|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ReportLog|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ReportLog[]    findAll()
+ * @method ReportLog[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class RaportLogRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, RaportLog::class);
+        parent::__construct($registry, ReportLog::class);
     }
 
-    public function add(RaportLog $entity, bool $flush = false): void
+    public function add(ReportLog $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class RaportLogRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(RaportLog $entity, bool $flush = false): void
+    public function remove(ReportLog $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class RaportLogRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return RaportLog[] Returns an array of RaportLog objects
+//     * @return ReportLog[] Returns an array of ReportLog objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class RaportLogRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?RaportLog
+//    public function findOneBySomeField($value): ?ReportLog
 //    {
 //        return $this->createQueryBuilder('r')
 //            ->andWhere('r.exampleField = :val')

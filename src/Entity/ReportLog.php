@@ -27,7 +27,7 @@ class RaportLog
     private ?string $state = null;
 
     #[ORM\OneToOne(mappedBy: 'raport_log', cascade: ['persist', 'remove'])]
-    private ?Raport $raport = null;
+    private ?Report $raport = null;
 
     public function getId(): ?int
     {
@@ -82,12 +82,12 @@ class RaportLog
         return $this;
     }
 
-    public function getRaport(): ?Raport
+    public function getRaport(): ?Report
     {
         return $this->raport;
     }
 
-    public function setRaport(Raport $raport): self
+    public function setRaport(Report $raport): self
     {
         // set the owning side of the relation if necessary
         if ($raport->getRaportLogId() !== $this) {

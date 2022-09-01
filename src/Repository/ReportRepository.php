@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Raport;
+use App\Entity\Report;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Raport>
+ * @extends ServiceEntityRepository<Report>
  *
- * @method Raport|null find($id, $lockMode = null, $lockVersion = null)
- * @method Raport|null findOneBy(array $criteria, array $orderBy = null)
- * @method Raport[]    findAll()
- * @method Raport[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Report|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Report|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Report[]    findAll()
+ * @method Report[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class RaportRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Raport::class);
+        parent::__construct($registry, Report::class);
     }
 
-    public function add(Raport $entity, bool $flush = false): void
+    public function add(Report $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class RaportRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Raport $entity, bool $flush = false): void
+    public function remove(Report $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class RaportRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Raport[] Returns an array of Raport objects
+//     * @return Report[] Returns an array of Report objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class RaportRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Raport
+//    public function findOneBySomeField($value): ?Report
 //    {
 //        return $this->createQueryBuilder('r')
 //            ->andWhere('r.exampleField = :val')
