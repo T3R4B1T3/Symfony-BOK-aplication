@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\RaportLogRepository;
+use App\Repository\ReportLogRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: RaportLogRepository::class)]
-class RaportLog
+#[ORM\Entity(repositoryClass: ReportLogRepository::class)]
+class ReportLog
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -26,8 +26,8 @@ class RaportLog
     #[ORM\Column(length: 255)]
     private ?string $state = null;
 
-    #[ORM\OneToOne(mappedBy: 'raport_log', cascade: ['persist', 'remove'])]
-    private ?Report $raport = null;
+    #[ORM\OneToOne(mappedBy: 'report_log', cascade: ['persist', 'remove'])]
+    private ?Report $report = null;
 
     public function getId(): ?int
     {
@@ -82,19 +82,19 @@ class RaportLog
         return $this;
     }
 
-    public function getRaport(): ?Report
+    public function getReport(): ?Report
     {
-        return $this->raport;
+        return $this->report;
     }
 
-    public function setRaport(Report $raport): self
+    public function setReport(Report $report): self
     {
         // set the owning side of the relation if necessary
-        if ($raport->getRaportLogId() !== $this) {
-            $raport->setRaportLogId($this);
+        if ($report->getReportLog() !== $this) {
+            $report->setReportLog($this);
         }
 
-        $this->raport = $raport;
+        $this->report = $report;
 
         return $this;
     }

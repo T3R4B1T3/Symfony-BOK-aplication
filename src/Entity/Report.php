@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\RaportRepository;
+use App\Repository\ReportRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: RaportRepository::class)]
-class Raport
+#[ORM\Entity(repositoryClass: ReportRepository::class)]
+class Report
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -24,22 +24,22 @@ class Raport
     private ?string $phone_number = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $raport_date = null;
+    private ?\DateTimeInterface $report_date = null;
 
     #[ORM\Column(length: 255)]
     private ?string $user_agent = null;
 
-    #[ORM\ManyToOne(inversedBy: 'raports')]
+    #[ORM\ManyToOne(inversedBy: 'reports')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
-    #[ORM\ManyToOne(inversedBy: 'raports')]
+    #[ORM\ManyToOne(inversedBy: 'reports')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Shop $shop = null;
 
-    #[ORM\OneToOne(inversedBy: 'raport', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'report', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?RaportLog $raport_log = null;
+    private ?ReportLog $report_log = null;
 
     public function getId(): ?int
     {
@@ -82,14 +82,14 @@ class Raport
         return $this;
     }
 
-    public function getRaportDate(): ?\DateTimeInterface
+    public function getReportDate(): ?\DateTimeInterface
     {
-        return $this->raport_date;
+        return $this->report_date;
     }
 
-    public function setRaportDate(\DateTimeInterface $raport_date): self
+    public function setReportDate(\DateTimeInterface $report_date): self
     {
-        $this->raport_date = $raport_date;
+        $this->report_date = $report_date;
 
         return $this;
     }
@@ -130,14 +130,14 @@ class Raport
         return $this;
     }
 
-    public function getRaportLog(): ?RaportLog
+    public function getReportLog(): ?ReportLog
     {
-        return $this->raport_log;
+        return $this->report_log;
     }
 
-    public function setRaportLog(RaportLog $raport_log): self
+    public function setReportLog(ReportLog $report_log): self
     {
-        $this->raport_log = $raport_log;
+        $this->report_log = $report_log;
 
         return $this;
     }

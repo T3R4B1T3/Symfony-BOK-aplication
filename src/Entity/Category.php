@@ -18,12 +18,12 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Raport::class, orphanRemoval: true)]
-    private Collection $raports;
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Report::class, orphanRemoval: true)]
+    private Collection $reports;
 
     public function __construct()
     {
-        $this->raports = new ArrayCollection();
+        $this->reports = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -44,29 +44,29 @@ class Category
     }
 
     /**
-     * @return Collection<int, Raport>
+     * @return Collection<int, Report>
      */
-    public function getRaports(): Collection
+    public function getReports(): Collection
     {
-        return $this->raports;
+        return $this->reports;
     }
 
-    public function addRaports(Raport $raports): self
+    public function addReports(Report $reports): self
     {
-        if (!$this->raports->contains($raports)) {
-            $this->raports->add($raports);
-            $raports->setCategoryId($this);
+        if (!$this->reports->contains($reports)) {
+            $this->reports->add($reports);
+            $reports->setCategory($this);
         }
 
         return $this;
     }
 
-    public function removeRaports(Raport $raports): self
+    public function removeReports(Report $reports): self
     {
-        if ($this->raports->removeElement($raports)) {
+        if ($this->reports->removeElement($reports)) {
             // set the owning side to null (unless already changed)
-            if ($raports->getCategoryId() === $this) {
-                $raports->setCategoryId(null);
+            if ($reports->getCategory() === $this) {
+                $reports->setCategory(null);
             }
         }
 

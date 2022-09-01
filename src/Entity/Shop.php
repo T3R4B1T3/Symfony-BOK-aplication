@@ -21,12 +21,12 @@ class Shop
     #[ORM\Column(length: 255)]
     private ?string $city = null;
 
-    #[ORM\OneToMany(mappedBy: 'shop', targetEntity: Raport::class, orphanRemoval: true)]
-    private Collection $raports;
+    #[ORM\OneToMany(mappedBy: 'shop', targetEntity: Report::class, orphanRemoval: true)]
+    private Collection $reports;
 
     public function __construct()
     {
-        $this->raports = new ArrayCollection();
+        $this->reports = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -59,29 +59,29 @@ class Shop
     }
 
     /**
-     * @return Collection<int, Raport>
+     * @return Collection<int, Report>
      */
-    public function getRaports(): Collection
+    public function getReports(): Collection
     {
-        return $this->raports;
+        return $this->reports;
     }
 
-    public function addRaport(Raport $raport): self
+    public function addReport(Report $report): self
     {
-        if (!$this->raports->contains($raport)) {
-            $this->raports->add($raport);
-            $raport->setShopId($this);
+        if (!$this->reports->contains($report)) {
+            $this->reports->add($report);
+            $report->setShop($this);
         }
 
         return $this;
     }
 
-    public function removeRaport(Raport $raport): self
+    public function removeReport(Report $report): self
     {
-        if ($this->raports->removeElement($raport)) {
+        if ($this->reports->removeElement($report)) {
             // set the owning side to null (unless already changed)
-            if ($raport->getShopId() === $this) {
-                $raport->setShopId(null);
+            if ($report->getShop() === $this) {
+                $report->setShop(null);
             }
         }
 
