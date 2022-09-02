@@ -24,8 +24,12 @@ class ReportType extends AbstractType implements FormTypeInterface
         $builder
             ->add('description', TextType::class, [
                 'required' => true,
-                'constraints' => [new Length(['min' => 30]),
-                    new Regex(['pattern' => "^[\w',]+\s[\w',]+\s[\w',]+^",
+                'constraints' => [new Length([
+                    'min' => 30,
+                    'minMessage' => "Description requires at least 30 characters"]),
+                    new Regex([
+                        'pattern' => "^[\w',]+\s[\w',]+\s[\w',]+^",
+                        'message' => "Description requires at least 4 words"
                     ])],
             ])
             ->add('email', EmailType::class, [
