@@ -28,8 +28,8 @@ class ReportType extends AbstractType implements FormTypeInterface
                     'min' => 30,
                     'minMessage' => "Description requires at least 30 characters"]),
                     new Regex([
-                        'pattern' => "^[\w',]+\s[\w',]+\s[\w',]+^",
-                        'message' => "Description requires at least 4 words"
+                        'pattern' => "/^[\w',]+\s[\w',]+\s[\w',]+/",
+                        'message' => "Description requires at least 3 words"
                     ])],
             ])
             ->add('email', EmailType::class, [
@@ -38,9 +38,14 @@ class ReportType extends AbstractType implements FormTypeInterface
                     'mode' => 'strict'
                 ])],
             ])
-            ->add('phone_number', IntegerType::class, [
+            ->add('phone_number', TextType::class, [
                 'required' => false,
-                'constraints' => [new Length(['min' => 9, 'max' => 9])]
+                'constraints' => [
+                    new Regex([
+                        'pattern' => "/^\d{9}$/",
+                            'message' => "Phone number must contain excatly 9 digits"
+                        ]
+                    )]
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
