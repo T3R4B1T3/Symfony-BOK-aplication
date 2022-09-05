@@ -5,22 +5,39 @@
 {% block body %}
     <h1>Report index</h1>
 
+    {% if app.user is not empty %}
+        <p>You are logged as {{ app.user.username }}</p>
+        <a href="{{ path('app_logout') }}">Logout</a>
+        <a href="{{ path('app_register') }}">Register</a>
+    {% else %}
+        <a href="{{ path('app_login') }}">Log in</a>
+        <a href="{{ path('app_register') }}">Register</a>
+    {% endif %}
+
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Description</th>
-                <th>Email</th>
-                <th>Phone_number</th>
-                <th>Report_date</th>
-                <th>User_agent</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Seen</th>
+            <th>Description</th>
+            <th>Email</th>
+            <th>Phone_number</th>
+            <th>Report_date</th>
+            <th>User_agent</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for report in reports %}
             <tr>
                 <td>{{ report.id }}</td>
+                <td>
+                    {% if report.ReportLog.seen == 1 %}
+                        {{ report.ReportLog.seen }}
+                    {% else %}
+                        0
+                    {% endif %}
+                </td>
                 <td>{{ report.description }}</td>
                 <td>{{ report.email }}</td>
                 <td>{{ report.phoneNumber }}</td>
@@ -33,7 +50,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="8">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Category;
 use App\Entity\Report;
 use App\Entity\Shop;
+use phpDocumentor\Reflection\PseudoTypes\Numeric_;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -38,6 +39,7 @@ class ReportType extends AbstractType implements FormTypeInterface
                     'mode' => 'strict'
                 ])],
             ])
+
             ->add('phone_number', TextType::class, [
                 'required' => false,
                 'constraints' => [
