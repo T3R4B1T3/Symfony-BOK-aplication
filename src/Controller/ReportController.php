@@ -17,10 +17,10 @@ use Symfony\Component\VarDumper\Cloner\Data;
 #[Route('/report')]
 class ReportController extends AbstractController
 {
-    #[Route('/', name: 'app_report_index', methods: ['GET'])]
+    #[Route('/', name: 'app_report', methods: ['GET'])]
     public function index(ReportRepository $reportRepository): Response
     {
-        return $this->render('report/index.html.twig', [
+        return $this->render('report/report.html.twig', [
             'reports' => $reportRepository->findAll(),
         ]);
     }
@@ -46,7 +46,7 @@ class ReportController extends AbstractController
             $report->setReportLog($reportLog);
             $reportRepository->add($report, true);
 
-            return $this->redirectToRoute('app_report_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_report', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('report/new.html.twig', [
@@ -56,8 +56,17 @@ class ReportController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_report_show', methods: ['GET'])]
-    public function show(Report $report): Response
+    public function show(Report $report, ReportLog $reportLog, ReportLogRepository $reportLogRepository, $id): Response
     {
+
+        if ($reportLog->isSeen() == 0) {
+
+            $reportLog->setSeen('1');
+            $reportLog->setReadDate(new \DateTimeImmutable());
+            $reportLog->setFirstWhoRead($this->getUser()->getUserIdentifier());
+            $reportLog->setState('In Progers');
+            $reportLogRepository->add($reportLog, true);
+        }
         return $this->render('report/show.html.twig', [
             'report' => $report,
         ]);
@@ -72,7 +81,7 @@ class ReportController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $reportRepository->add($report, true);
 
-            return $this->redirectToRoute('app_report_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_report', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('report/edit.html.twig', [
@@ -88,6 +97,6 @@ class ReportController extends AbstractController
             $reportRepository->remove($report, true);
         }
 
-        return $this->redirectToRoute('app_report_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_report', [], Response::HTTP_SEE_OTHER);
     }
 }
