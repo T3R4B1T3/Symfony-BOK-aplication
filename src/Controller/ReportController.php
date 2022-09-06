@@ -46,7 +46,7 @@ class ReportController extends AbstractController
             $report->setReportLog($reportLog);
             $reportRepository->add($report, true);
 
-            return $this->redirectToRoute('app_report', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_home_page', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('report/new.html.twig', [

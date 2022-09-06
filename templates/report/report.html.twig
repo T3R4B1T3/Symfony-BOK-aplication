@@ -5,10 +5,20 @@
 {% block body %}
     <h1>Report index</h1>
 
+    {% if app.user is not empty %}
+        <p>You are logged as {{ app.user.username }}</p>
+        <a href="{{ path('app_logout') }}">Logout</a>
+        <a href="{{ path('app_register') }}">Register</a>
+    {% else %}
+        <a href="{{ path('app_login') }}">Log in</a>
+        <a href="{{ path('app_register') }}">Register</a>
+    {% endif %}
+
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Seen</th>
                 <th>Description</th>
                 <th>Email</th>
                 <th>Phone_number</th>
@@ -21,6 +31,13 @@
         {% for report in reports %}
             <tr>
                 <td>{{ report.id }}</td>
+                <td>
+                    {% if report.ReportLog.seen == 1 %}
+                        "seen"
+                    {% else %}
+                        "not seen"
+                    {% endif %}
+                </td>
                 <td>{{ report.description }}</td>
                 <td>{{ report.email }}</td>
                 <td>{{ report.phoneNumber }}</td>
@@ -33,11 +50,12 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_report_new') }}">Create new</a>
+    {% if is_granted("ROLE_ADMIN") %}
+        <a href="{{ path('app_home_page') }}">Back to homepage!</a>
+    {% endif %}
 {% endblock %}
