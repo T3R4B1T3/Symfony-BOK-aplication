@@ -58,11 +58,8 @@ class ReportType extends AbstractType implements FormTypeInterface
             ->add('shop', EntityType::class, [
                 'class' => Shop::class,
                 'choice_label' => 'name',
-            ])
-            ->add('report_log',EntityType::class,[
-                'class' => ReportLog::class,
-                'choice_label' =>'state'
             ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -39,7 +39,6 @@ class ReportController extends AbstractController
         $report->setUserAgent($request->headers->get('User-Agent'));
 
 
-
         if ($form->isSubmitted() && $form->isValid()) {
             $reportLog->setSeen(0);
             $reportLog->setState("new");
@@ -74,14 +73,14 @@ class ReportController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_report_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Report $report, ReportRepository $reportRepository): Response
+    public function edit(Request $request, Report $report, ReportLog $reportLog, ReportRepository $reportRepository): Response
     {
         $form = $this->createForm(ReportType::class, $report);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $reportLog->setState($request->request->get('state'));
             $reportRepository->add($report, true);
-
             return $this->redirectToRoute('app_report', [], Response::HTTP_SEE_OTHER);
         }
 
