@@ -24,7 +24,8 @@
                 <th>Phone_number</th>
                 <th>Report_date</th>
                 <th>User_agent</th>
-                <th>actions</th>
+                <th>State</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -43,6 +44,7 @@
                 <td>{{ report.phoneNumber }}</td>
                 <td>{{ report.reportDate ? report.reportDate|date('Y-m-d') : '' }}</td>
                 <td>{{ report.userAgent }}</td>
+                <td>{{ report.ReportLog.state }}</td>
                 <td>
                     <a href="{{ path('app_report_show', {'id': report.id}) }}">show</a>
                     <a href="{{ path('app_report_edit', {'id': report.id}) }}">edit</a>
@@ -50,7 +52,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="9">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

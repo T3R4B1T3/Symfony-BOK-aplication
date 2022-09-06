@@ -4,7 +4,9 @@ namespace App\Form;
 
 use App\Entity\Category;
 use App\Entity\Report;
+use App\Entity\ReportLog;
 use App\Entity\Shop;
+use Doctrine\Migrations\Version\State;
 use phpDocumentor\Reflection\PseudoTypes\Numeric_;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -17,6 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Regex;
+use function Sodium\add;
 
 class ReportType extends AbstractType implements FormTypeInterface
 {
@@ -56,6 +59,7 @@ class ReportType extends AbstractType implements FormTypeInterface
                 'class' => Shop::class,
                 'choice_label' => 'name',
             ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

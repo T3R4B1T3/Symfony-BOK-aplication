@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Report;
 use App\Entity\ReportLog;
+use App\Form\ReportLogType;
 use App\Form\ReportType;
 use App\Repository\ReportLogRepository;
 use App\Repository\ReportRepository;
@@ -36,7 +37,6 @@ class ReportController extends AbstractController
         $form->handleRequest($request);
         $report->setReportDate(new \DateTimeImmutable());
         $report->setUserAgent($request->headers->get('User-Agent'));
-
 
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -73,14 +73,14 @@ class ReportController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_report_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Report $report, ReportRepository $reportRepository): Response
+    public function edit(Request $request, Report $report, ReportLog $reportLog, ReportRepository $reportRepository): Response
     {
         $form = $this->createForm(ReportType::class, $report);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $reportLog->setState($request->request->get('state'));
             $reportRepository->add($report, true);
-
             return $this->redirectToRoute('app_report', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -99,4 +99,5 @@ class ReportController extends AbstractController
 
         return $this->redirectToRoute('app_report', [], Response::HTTP_SEE_OTHER);
     }
+
 }
