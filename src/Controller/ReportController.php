@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Report;
 use App\Entity\ReportLog;
+use App\Form\ReportLogType;
 use App\Form\ReportType;
 use App\Repository\ReportLogRepository;
 use App\Repository\ReportRepository;
@@ -99,4 +100,5 @@ class ReportController extends AbstractController
 
         return $this->redirectToRoute('app_report', [], Response::HTTP_SEE_OTHER);
     }
+
 }
