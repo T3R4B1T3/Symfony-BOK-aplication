@@ -16,16 +16,17 @@
 
     <table class="table">
         <thead>
-        <tr>
-            <th>Id</th>
-            <th>Seen</th>
-            <th>Description</th>
-            <th>Email</th>
-            <th>Phone_number</th>
-            <th>Report_date</th>
-            <th>User_agent</th>
-            <th>actions</th>
-        </tr>
+            <tr>
+                <th>Id</th>
+                <th>Seen</th>
+                <th>Description</th>
+                <th>Email</th>
+                <th>Phone_number</th>
+                <th>Report_date</th>
+                <th>User_agent</th>
+                <th>State</th>
+                <th>Actions</th>
+            </tr>
         </thead>
         <tbody>
         {% for report in reports %}
@@ -43,6 +44,7 @@
                 <td>{{ report.phoneNumber }}</td>
                 <td>{{ report.reportDate ? report.reportDate|date('Y-m-d') : '' }}</td>
                 <td>{{ report.userAgent }}</td>
+                <td>{{ report.ReportLog.state }}</td>
                 <td>
                     <a href="{{ path('app_report_show', {'id': report.id}) }}">show</a>
                     <a href="{{ path('app_report_edit', {'id': report.id}) }}">edit</a>
@@ -50,11 +52,12 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="9">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_report_new') }}">Create new</a>
+    {% if is_granted("ROLE_ADMIN") %}
+        <a href="{{ path('app_home_page') }}">Back to homepage!</a>
+    {% endif %}
 {% endblock %}

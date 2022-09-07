@@ -5,10 +5,8 @@ namespace App\Form;
 use App\Entity\Category;
 use App\Entity\Report;
 use App\Entity\Shop;
-use phpDocumentor\Reflection\PseudoTypes\Numeric_;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -39,13 +37,12 @@ class ReportType extends AbstractType implements FormTypeInterface
                     'mode' => 'strict'
                 ])],
             ])
-
             ->add('phone_number', TextType::class, [
                 'required' => false,
                 'constraints' => [
                     new Regex([
-                        'pattern' => "/^\d{9}$/",
-                            'message' => "Phone number must contain excatly 9 digits"
+                            'pattern' => "/^\d{9}$/",
+                            'message' => "Phone number must contain exactly 9 digits"
                         ]
                     )]
             ])
