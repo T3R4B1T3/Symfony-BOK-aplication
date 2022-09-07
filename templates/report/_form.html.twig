@@ -1,4 +1,7 @@
+<div id="formularz">
 {{ form_start(form) }}
+    <h1 id="new">Create new Report</h1>
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <button class="btn" id="savebtn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
+</div>
