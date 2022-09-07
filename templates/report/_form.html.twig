@@ -1,7 +1,25 @@
-<div id="formularz">
+<div class="container">
+    <h1>Create new Report</h1>
 {{ form_start(form) }}
-    <h1 id="new">Create new Report</h1>
     {{ form_widget(form) }}
-    <button class="btn" id="savebtn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+
+{% set states = ["new", "in progress", "rejected", "completed", "duplicate"] %}
+
+{% if app.request.get('_route') == 'app_report_edit' %}
+    <label for="state">State</label>
+  <select id="state" name="state">
+    <option value="{{ report.ReportLog.state }}">{{ report.ReportLog.state }}</option>
+    {% for state in states %}
+      {% if state != report.ReportLog.state %}
+        <option value="{{ state }}">{{ state }}</option>
+      {% endif %}
+    {% endfor %}
+  </select>
+
+{% endif %}
+
+<p><button class="btn">{{ button_label|default('SAVE') }}</button></p>
+    <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
+    {{ form_end(form) }}
 </div>
+
