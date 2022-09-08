@@ -1,0 +1,305 @@
+/*!**************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[1].use[1]!./assets/styles/app.css ***!
+  \**************************************************************************************************************/
+body{
+    background-color: cornflowerblue;
+    font-family: 'Arial', sans-serif;
+}
+
+select{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+input[type=text], input[type=email], input[type=password]{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.btn {
+    width: 100%;
+    background-color: cornflowerblue;
+    color: #F8F8F8;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: dodgerblue;
+    font-weight: bold;
+}
+
+.container {
+    max-width: 450px;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 10%;
+    background-color: #F8F8F8;
+}
+
+.container#reportindex {
+    max-width: 750px;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 10%;
+    background-color: #F8F8F8;
+}
+
+a{
+    text-decoration: none;
+    color: #F8F8F8;
+    font-weight: bold;
+    display: block;
+}
+
+a:link#backtohomepage, a:visited#backtohomepage {
+    background-color: #009879;
+    color: #F8F8F8;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+a:hover#backtohomepage, a:active#backtohomepage {
+    background-color: seagreen;
+    font-weight: bold;
+}
+
+#newreport {
+    width: 80%;
+    margin: 5%;
+    background-color: cornflowerblue;
+    color: #F8F8F8;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    text-decoration: none;
+    text-align: center;
+}
+
+#newreport:hover {
+    background-color: dodgerblue;
+    font-weight: bold;
+}
+
+#reportlist {
+    width: 80%;
+    margin: 5%;
+    background-color: cornflowerblue;
+    color: #F8F8F8;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    text-decoration: none;
+    text-align: center;
+}
+
+#reportlist:hover {
+    background-color: dodgerblue;
+    font-weight: bold;
+}
+
+#register {
+    width: 80%;
+    margin: 5%;
+    background-color: #009879;
+    color: #F8F8F8;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    text-decoration: none;
+    text-align: center;
+}
+
+#register:hover {
+    background-color: seagreen;
+    font-weight: bold;
+}
+
+#login {
+    width: 80%;
+    margin: 5%;
+    background-color: #009879;
+    color: #F8F8F8;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    text-decoration: none;
+    text-align: center;
+}
+
+#login:hover {
+    background-color: seagreen;
+    font-weight: bold;
+}
+
+#logout {
+    width: 80%;
+    margin: 5%;
+    background-color: #FF392E;
+    color: #F8F8F8;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    text-decoration: none;
+    text-align: center;
+}
+
+#logout:hover {
+    background-color: #FF291E;
+    font-weight: bold;
+}
+
+#loginbtn {
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 5%;
+    background-color: #009879;
+    color: #F8F8F8;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+}
+
+#loginbtn:hover {
+    background-color: seagreen;
+    font-weight: bold;
+}
+
+.btn#delete {
+    width: 100%;
+    background-color: #FF392E;
+    color: #F8F8F8;
+    padding: 14px 20px;
+    margin-top: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.btn#delete:hover {
+    background-color: #FF291E;
+    font-weight: bold;
+}
+
+#show {
+    background-color: cornflowerblue;
+    color: #F8F8F8;
+    padding: 7px 13px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+}
+
+#show:hover {
+    background-color: dodgerblue;
+    font-weight: bold;
+}
+
+#edit {
+    background-color: #009879;
+    color: #F8F8F8;
+    padding: 7px 13px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+}
+
+#edit:hover {
+    background-color: seagreen;
+    font-weight: bold;
+}
+
+.table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+.table th, .table td {
+    padding: 12px 15px;
+    text-align: center;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+
+
+
+
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYXBwLmNzcyIsIm1hcHBpbmdzIjoiOzs7QUFBQTtJQUNJLDJCQUEyQjtBQUMvQiIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL2Fzc2V0cy9zdHlsZXMvYXBwLmNzcyJdLCJzb3VyY2VzQ29udGVudCI6WyJib2R5IHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiBsaWdodGdyYXk7XG59XG4iXSwibmFtZXMiOltdLCJzb3VyY2VSb290IjoiIn0=*/
