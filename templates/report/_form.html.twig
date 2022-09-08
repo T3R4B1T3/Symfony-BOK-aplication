@@ -18,7 +18,12 @@
   </select>
 
 {% endif %}
-<p><button class="btn">{{ button_label|default('SAVE') }}</button></p>
+    {% if app.request.get('_route') == 'app_report_new' %}
+        <input type="checkbox" name="checkbox" id="checkbox">
+        <label for="checkbox">I agree to get notifications on these phone number and email address</label>
+    {% endif %}
+
+    <p><button class="btn">{{ button_label|default('SAVE') }}</button></p>
     <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
     {{ form_end(form) }}
 </div>
