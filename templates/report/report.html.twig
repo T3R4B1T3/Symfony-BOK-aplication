@@ -3,36 +3,24 @@
 {% block title %}Report index{% endblock %}
 
 {% block body %}
-<div class="container">
+    <div class="container" id="reportindex">
     <h1>Report index</h1>
-
-    {% if app.user is not empty %}
-        <p>You are logged as {{ app.user.username }}</p>
-        <a href="{{ path('app_logout') }}">Logout</a>
-        <a href="{{ path('app_register') }}">Register</a>
-    {% else %}
-        <a href="{{ path('app_login') }}">Log in</a>
-        <a href="{{ path('app_register') }}">Register</a>
-    {% endif %}
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Seen</th>
-                <th>Description</th>
-                <th>Email</th>
-                <th>Phone_number</th>
-                <th>Report_date</th>
-                <th>User_agent</th>
-                <th>State</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>Category</th>
+            <th>Seen</th>
+            <th>Report date</th>
+            <th>State</th>
+            <th colspan="2">Actions</th>
+            <th></th>
+        </tr>
         </thead>
         <tbody>
         {% for report in reports %}
             <tr>
-                <td>{{ report.id }}</td>
+                <td>{{ report.Category.name }}</td>
                 <td>
                     {% if report.ReportLog.seen == 1 %}
                         "seen"
@@ -40,13 +28,10 @@
                         "not seen"
                     {% endif %}
                 </td>
-                <td>{{ report.description }}</td>
                 <td>{{ report.reportDate ? report.reportDate|date('Y-m-d') : '' }}</td>
                 <td>{{ report.ReportLog.state }}</td>
-                <td>
-                    <a href="{{ path('app_report_show', {'id': report.id}) }}">show</a>
-                    <a href="{{ path('app_report_edit', {'id': report.id}) }}">edit</a>
-                </td>
+                <td><a id="show" href="{{ path('app_report_show', {'id': report.id}) }}">SHOW</a></td>
+                <td><a id="edit" href="{{ path('app_report_edit', {'id': report.id}) }}">EDIT</a></td>
             </tr>
         {% else %}
             <tr>
@@ -56,7 +41,7 @@
         </tbody>
     </table>
     {% if is_granted("ROLE_ADMIN") %}
-        <a href="{{ path('app_home_page') }}">Homepage</a>
+        <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
         </div>
     {% endif %}
 {% endblock %}

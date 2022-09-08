@@ -1,12 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Report{% endblock %}
+{% block title %}New report{% endblock %}
 
 {% block body %}
 
     {{ include('report/_form.html.twig') }}
-    {% if is_granted("ROLE_ADMIN") %}
-        <a href="{{ path('app_report') }}">back to list</a>
-    {% endif %}
 
 {% endblock %}

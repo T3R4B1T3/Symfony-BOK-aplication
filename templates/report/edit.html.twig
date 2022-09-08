@@ -1,11 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Report{% endblock %}
+{% block title %}Edit report{% endblock %}
 
 {% block body %}
-    <h1>Edit Report</h1>
+    <div class="container">
+        <h1>Edit report</h1>
+        {{ form_start(form) }}
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
 
-    {{ include('report/_form.html.twig', {'button_label': 'Update'}) }}
-    <a href="{{ path('app_report') }}">back to list</a>
-    {{ include('report/_delete_form.html.twig') }}
+        {% set states = ["new", "in progress", "rejected", "completed", "duplicate"] %}
+
+        {% if app.request.get('_route') == 'app_report_edit' %}
+            <label for="state">State</label>
+            <select id="state" name="state">
+                <option value="{{ report.ReportLog.state }}">{{ report.ReportLog.state }}</option>
+                {% for state in states %}
+                    {% if state != report.ReportLog.state %}
+                        <option value="{{ state }}">{{ state }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+
+        {% endif %}
+        {% if app.request.get('_route') == 'app_report_new' %}
+            <input type="checkbox" name="checkbox" id="checkbox">
+            <label for="checkbox">I agree to get notifications on these phone number and email address</label>
+        {% endif %}
+
+        <p><button class="btn">{{ button_label|default('SAVE') }}</button></p>
+        {{ form_end(form) }}
+        {{ include('report/_delete_form.html.twig') }}
+        <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
+    </div>
 {% endblock %}

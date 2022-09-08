@@ -35,7 +35,7 @@ class ReportType extends AbstractType implements FormTypeInterface
                     'min' => 30,
                     'minMessage' => "Description requires at least 30 characters"]),
                     new Regex([
-                        'pattern' => "/^[\w',]+\s[\w',]+\s[\w',]+/",
+                        'pattern' => "/^[\w'.*]+\s[\w'.*]+\s[\w'.*]+/",
                         'message' => "Description requires at least 3 words"
                     ])],
             ])
