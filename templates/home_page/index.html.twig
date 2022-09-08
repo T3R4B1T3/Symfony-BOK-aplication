@@ -3,28 +3,33 @@
 {% block title %}Welcome to the homepage{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-<div class="log_messages">
-    {% if app.user is not empty %}
-        <p>You are logged as {{ app.user.username }}</p>
-        <a href="{{ path('app_logout') }}">Logout</a>
-    {% endif %}
-</div>
-<div class="example-wrapper">
-    <h1 id="hm1">Welcome to the Homepage! ✅</h1>
-    <ul>
-        <li><a href="{{ path('app_report_new') }}">Add new report! </a></li>
-        <li><a href="{{ path('app_login') }}">Login in!</a></li>
-        {% if is_granted("ROLE_ADMIN") %}
-        <li><a href="{{ path('app_report')}}">Reports list!</a></li>
-        <li><a href="{{ path('app_register') }}">Add new user account!</a></li>
+    <div class="container">
+        <h1 id="hm1">Homepage</h1>
+        <div id="newreport"><a href="{{ path('app_report_new') }}">
+                ADD REPORT
+            </a></div>
+
+        {% if app.user is empty %}
+            <div id="login"><a href="{{ path('app_login') }}">
+                LOGIN
+                </a></div><br>
         {% endif %}
 
+        {% if is_granted("ROLE_ADMIN") %}
+            <div id="reportlist"><a href="{{ path('app_report') }}">
+                    REPORT LIST
+                </a></div>
 
-
-    </ul>
-</div>
+            <div id="register"><a href="{{ path('app_register') }}">
+                REGISTER
+                </a></div>
+        {% endif %}
+        {% if app.user is not empty %}
+            <div id="logout"><a href="{{ path('app_logout') }}">
+                LOGOUT
+            </a></div>
+            You are logged as: <b>{{ app.user.username }}</b>
+        {% endif %}
+    </div>
 {% endblock %}
+

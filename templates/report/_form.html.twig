@@ -1,3 +1,5 @@
+<div class="container">
+    <h1>Create new Report</h1>
 {{ form_start(form) }}
 {{ form_start(form) }}
     {{ form_widget(form) }}
@@ -16,7 +18,9 @@
   </select>
 
 {% endif %}
+<p><button class="btn">{{ button_label|default('SAVE') }}</button></p>
+    <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
+    {{ form_end(form) }}
+</div>
 
-<p><button class="btn">{{ button_label|default('Save') }}</button></p>
-{{ form_end(form) }}
 

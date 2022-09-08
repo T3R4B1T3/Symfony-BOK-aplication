@@ -3,7 +3,6 @@
 {% block title %}New Report{% endblock %}
 
 {% block body %}
-    <h1>Create new Report</h1>
 
     {{ include('report/_form.html.twig') }}
     {% if is_granted("ROLE_ADMIN") %}
