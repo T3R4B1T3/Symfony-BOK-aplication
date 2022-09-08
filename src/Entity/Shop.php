@@ -21,6 +21,7 @@ class Shop
     #[ORM\Column(length: 255)]
     private ?string $city = null;
 
+
     #[ORM\OneToMany(mappedBy: 'shop', targetEntity: Report::class, orphanRemoval: true)]
     private Collection $reports;
 
@@ -59,6 +60,7 @@ class Shop
     }
 
     /**
+<<<<<<< HEAD
      * @return Collection<int, Report>
      */
     public function getReports(): Collection
