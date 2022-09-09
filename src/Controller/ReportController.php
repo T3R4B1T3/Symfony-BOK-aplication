@@ -28,6 +28,33 @@ class ReportController extends AbstractController
     #[Route('/new', name: 'app_report_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ReportRepository $reportRepository, ReportLogRepository $reportLogRepository): Response
     {
+        if (isset($_POST["g-recaptcha-response"])) {
+            $spam = 0;
+            $captcha = $_POST["g-recaptcha-response"];
+            if (!$captcha) {
+                // It's a Bot do something about it;
+                $spam = -1;
+            } else {
+                $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LdfZ-EhAAAAALmT7Lap2W3SzsfVqNwCSjgHzIz_&response=" . $captcha . "&remoteip=" . $_SERVER['REMOTE_ADDR']);
+                $response = json_decode($response);
+                if ($response->success === false) {
+                    // It's a Bot do something about it
+                    $spam = -1;
+                }
+                if ($response->success && $response->score <= 0.5) {
+                    // It's probably a Bot, do somethiongs about it.;
+                    $spam = -1;
+                }
+                if (!$spam) {
+                    // Send your mail form or whatever you want to do, it wasn't a Bot.
+                    print "You are human, hello, nice to meet you!.";
+                } else {
+                    // It's a bot, don't do anything, better still make it look as though you have done something ;).
+                    print "You are human, hello!.";  // But in fact I know you're a bot, go away!
+                }
+            }
+        }
+
         $reportLog = new ReportLog();
 
         $report = new Report();

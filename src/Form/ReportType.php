@@ -69,7 +69,7 @@ class ReportType extends AbstractType implements FormTypeInterface
     {
         $resolver->setDefaults([
             'data_class' => Report::class,
-            'attr' => ['id' => 'form']
+            'attr' => ['id' => 'add_new_report_form']
         ]);
     }
 }
