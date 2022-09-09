@@ -29,8 +29,8 @@ class ReportController extends AbstractController
     public function new(Request $request, ReportRepository $reportRepository, ReportLogRepository $reportLogRepository): Response
     {
         if (isset($_POST["g-recaptcha-response"])) {
-            $spam = 0;
             $captcha = $_POST["g-recaptcha-response"];
+            $spam = 0;
             if (!$captcha) {
                 // It's a Bot do something about it;
                 $spam = -1;

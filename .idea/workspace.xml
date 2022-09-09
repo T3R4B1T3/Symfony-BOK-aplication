@@ -5,7 +5,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/ReportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ReportController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Form/ReportType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/ReportType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/report/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/report/new.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -203,7 +202,7 @@
       <workItem from="1662539360736" duration="4930000" />
       <workItem from="1662544780411" duration="7951000" />
       <workItem from="1662621434008" duration="13040000" />
-      <workItem from="1662707033850" duration="6362000" />
+      <workItem from="1662707033850" duration="8743000" />
     </task>
     <servers />
   </component>

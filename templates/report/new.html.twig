@@ -2,16 +2,17 @@
 
 {% block title %}New Report{% endblock %}
 {% block head %}
-    <script src="https://www.google.com/recaptcha/api.js?render=<yourpublic key>"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LdfZ-EhAAAAAICEyqgMyRQZmyArUB6Tu2ML5CU7"></script>
     <script>
-        grecaptcha.ready(function() {
-            grecaptcha.execute('6LdfZ-EhAAAAAICEyqgMyRQZmyArUB6Tu2ML5CU7', {action:'validate_captcha'})
-                .then(function(token) {
+        grecaptcha.ready(function () {
+            grecaptcha.execute('6LdfZ-EhAAAAAICEyqgMyRQZmyArUB6Tu2ML5CU7', {action: 'validate_captcha'})
+                .then(function (token) {
                     document.getElementById('g-recaptcha-response').value = token;
                 });
         });
     </script>
 {% endblock %}
+
 {% block body %}
 
     {{ form_start(form) }}
@@ -20,9 +21,10 @@
     <input type="checkbox" name="checkbox" id="checkbox">
     <label for="checkbox">I agree to get notifications on these phone number and email address</label>
     <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+    <input type="hidden" name="action" value="validate_captcha">
 
     <p>
-        <button class="btn g-recaptcha">{{ button_label|default('SAVE') }}</button>
+        <button class="btn">{{ button_label|default('SAVE') }}</button>
     </p>
     <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
     {{ form_end(form) }}
