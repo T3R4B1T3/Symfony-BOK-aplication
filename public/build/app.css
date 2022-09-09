@@ -65,6 +65,16 @@ input[type=text], input[type=email], input[type=password]{
     background-color: #F8F8F8;
 }
 
+.container#showreport {
+    max-width: 550px;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 10%;
+    background-color: #F8F8F8;
+}
+
 a{
     text-decoration: none;
     color: #F8F8F8;
@@ -261,6 +271,24 @@ a:hover#backtohomepage, a:active#backtohomepage {
     font-weight: bold;
 }
 
+#blueedit {
+    background-color: cornflowerblue;
+    color: #F8F8F8;
+    padding: 7px 13px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+}
+
+#blueedit:hover {
+    background-color: dodgerblue;
+    font-weight: bold;
+}
+
 .table {
     border-collapse: collapse;
     margin: 25px 0;
@@ -298,6 +326,37 @@ a:hover#backtohomepage, a:active#backtohomepage {
     color: #009879;
 }
 
+.tablereport {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.tablereport tbody th {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+.tablereport th, .tablereport td {
+    padding: 12px 15px;
+    text-align: center;
+}
+
+.tablereport tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.tablereport tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.tablereport tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
 
 
 

@@ -1,9 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New report{% endblock %}
+{% block title %}New Report{% endblock %}
 
 {% block body %}
+    <div class="container">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
 
-    {{ include('report/_form.html.twig') }}
+        <input type="checkbox" name="checkbox" id="checkbox">
+        <label for="checkbox">I agree to get notifications on these phone number and email address</label>
 
+        <p><button class="btn">{{ button_label|default('SAVE') }}</button></p>
+        <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}

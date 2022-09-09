@@ -3,14 +3,11 @@
 {% block title %}Report{% endblock %}
 
 {% block body %}
-    <h1>Report</h1>
+    <div class="container" id="showreport">
+        <h1>Report</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ report.id }}</td>
-            </tr>
+        <table class="tablereport">
+            <tbody>
             <tr>
                 <th>Description</th>
                 <td>{{ report.description }}</td>
@@ -20,21 +17,32 @@
                 <td>{{ report.email }}</td>
             </tr>
             <tr>
-                <th>Phone_number</th>
+                <th>Phone number</th>
                 <td>{{ report.phoneNumber }}</td>
             </tr>
             <tr>
-                <th>Report_date</th>
+                <th>Report date</th>
                 <td>{{ report.reportDate ? report.reportDate|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
-                <th>User_agent</th>
+                <th>User agent</th>
                 <td>{{ report.userAgent }}</td>
             </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_report_edit', {'id': report.id}) }}">edit</a>
-
-    {{ include('report/_delete_form.html.twig') }}
+            <tr>
+                <th>First read by</th>
+                <td>{{ report.ReportLog.firstwhoread }}</td>
+            </tr>
+            <tr>
+                <th>First read at</th>
+                <td>{{ report.ReportLog ? report.ReportLog.readdate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ report.ReportLog.state }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <a id="blueedit" href="{{ path('app_report_edit', {'id': report.id}) }}">EDIT</a>
+        <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
+    </div>
 {% endblock %}
