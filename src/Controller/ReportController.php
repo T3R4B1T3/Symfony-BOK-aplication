@@ -13,7 +13,6 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use function PHPUnit\Framework\throwException;
 
 #[Route('/report')]
 class ReportController extends AbstractController
@@ -30,7 +29,6 @@ class ReportController extends AbstractController
     public function new(Request $request, ReportRepository $reportRepository, ReportLogRepository $reportLogRepository): Response
     {
         $reportLog = new ReportLog();
-        $isAllowed = true;
 
         $report = new Report();
         $form = $this->createForm(ReportType::class, $report);
@@ -38,20 +36,14 @@ class ReportController extends AbstractController
         $report->setReportDate(new DateTimeImmutable());
         $report->setUserAgent($request->headers->get('User-Agent'));
 
-        if (!$request->request->get('checkbox')) {
-            $report->setPhoneNumber('');
-            $report->setEmail('');
-        } else {
-            $isAllowed = false;
-        }
-
         if ($form->isSubmitted()) {
-            if ($report->getPhoneNumber() != '' || $report->getEmail() != null) {
-                $isAllowed = true;
-            } else {
+            if ($report->getPhoneNumber() == '' && $report->getEmail() == '' && $request->request->get('checkbox')) {
                 $form->addError(new FormError("You agreed for notfications, so you need to add valid phone number or email"));
+            } else {
+                $report->setPhoneNumber('');
+                $report->setEmail('');
             }
-            if ($form->isValid() && $isAllowed) {
+            if ($form->isValid()) {
                 $reportLog->setSeen(0);
                 $reportLog->setState("new");
                 $reportLogRepository->add($reportLog, true);

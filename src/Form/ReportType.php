@@ -23,22 +23,31 @@ class ReportType extends AbstractType implements FormTypeInterface
         $builder
             ->add('description', TextType::class, [
                 'required' => true,
+                'attr' => array(
+                    'placeholder' => 'e.g. My laptop is broken'
+                ),
                 'constraints' => [new Length([
                     'min' => 30,
                     'minMessage' => "Description requires at least 30 characters"]),
                     new Regex([
-                        'pattern' => "/^[\w',]+\s[\w',]+\s[\w',]+/",
+                        'pattern' => "/^[\w'.*]+\s[\w'.*]+\s[\w'.*]+/",
                         'message' => "Description requires at least 3 words"
                     ])],
             ])
             ->add('email', EmailType::class, [
                 'required' => false,
+                'attr' => array(
+                    'placeholder' => 'mymagentoteacherbeatsme123@gmail.com'
+                ),
                 'constraints' => [new Email([
                     'mode' => 'strict'
                 ])],
             ])
             ->add('phone_number', TextType::class, [
                 'required' => false,
+                'attr' => array(
+                    'placeholder' => '123456789'
+                ),
                 'constraints' => [
                     new Regex([
                             'pattern' => "/^\d{9}$/",
@@ -60,6 +69,7 @@ class ReportType extends AbstractType implements FormTypeInterface
     {
         $resolver->setDefaults([
             'data_class' => Report::class,
+            'attr' => ['id' => 'form']
         ]);
     }
 }

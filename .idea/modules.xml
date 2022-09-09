@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/bok.iml" filepath="$PROJECT_DIR$/.idea/bok.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Symfony-BOK-aplication.iml" filepath="$PROJECT_DIR$/.idea/Symfony-BOK-aplication.iml" />
     </modules>
   </component>
 </project>
