@@ -23,11 +23,12 @@ class ReportLog
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $read_date = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $state = null;
-
     #[ORM\OneToOne(mappedBy: 'report_log', cascade: ['persist', 'remove'])]
     private ?Report $report = null;
+
+    #[ORM\ManyToOne(inversedBy: 'reportLogs')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?State $state = null;
 
     public function getId(): ?int
     {
@@ -70,18 +71,6 @@ class ReportLog
         return $this;
     }
 
-    public function getState(): ?string
-    {
-        return $this->state;
-    }
-
-    public function setState(string $state): self
-    {
-        $this->state = $state;
-
-        return $this;
-    }
-
     public function getReport(): ?Report
     {
         return $this->report;
@@ -95,6 +84,18 @@ class ReportLog
         }
 
         $this->report = $report;
+
+        return $this;
+    }
+
+    public function getState(): ?State
+    {
+        return $this->state;
+    }
+
+    public function setState(?State $state): self
+    {
+        $this->state = $state;
 
         return $this;
     }

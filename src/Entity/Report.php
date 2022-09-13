@@ -41,6 +41,9 @@ class Report
     #[ORM\JoinColumn(nullable: false)]
     private ?ReportLog $report_log = null;
 
+    #[ORM\Column]
+    private ?bool $user_agreement = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -138,6 +141,18 @@ class Report
     public function setReportLog(ReportLog $report_log): self
     {
         $this->report_log = $report_log;
+
+        return $this;
+    }
+
+    public function isUserAgreement(): ?bool
+    {
+        return $this->user_agreement;
+    }
+
+    public function setUserAgreement(bool $user_agreement): self
+    {
+        $this->user_agreement = $user_agreement;
 
         return $this;
     }

@@ -29,7 +29,7 @@
                     {% endif %}
                 </td>
                 <td>{{ report.reportDate ? report.reportDate|date('Y-m-d') : '' }}</td>
-                <td>{{ report.ReportLog.state }}</td>
+                <td>{{ report.ReportLog.state.name }}</td>
                 <td><a id="show" href="{{ path('app_report_show', {'id': report.id}) }}">SHOW</a></td>
                 <td><a id="edit" href="{{ path('app_report_edit', {'id': report.id}) }}">EDIT</a></td>
             </tr>

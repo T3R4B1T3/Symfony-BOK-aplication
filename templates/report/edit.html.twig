@@ -6,26 +6,19 @@
     <div class="container">
         <h1>Edit report</h1>
         {{ form_start(form) }}
-        {{ form_start(form) }}
         {{ form_widget(form) }}
-
-        {% set states = ["new", "in progress", "rejected", "completed", "duplicate"] %}
 
         {% if app.request.get('_route') == 'app_report_edit' %}
             <label for="state">State</label>
             <select id="state" name="state">
-                <option value="{{ report.ReportLog.state }}">{{ report.ReportLog.state }}</option>
+                <option value="{{ report.ReportLog.state.name }}">{{ report.ReportLog.state.name }}</option>
                 {% for state in states %}
-                    {% if state != report.ReportLog.state %}
-                        <option value="{{ state }}">{{ state }}</option>
+                    {% if state.name != report.ReportLog.state.name %}
+                        <option value="{{ state.name }}">{{ state.name }}</option>
                     {% endif %}
                 {% endfor %}
             </select>
 
-        {% endif %}
-        {% if app.request.get('_route') == 'app_report_new' %}
-            <input type="checkbox" name="checkbox" id="checkbox">
-            <label for="checkbox">I agree to get notifications on these phone number and email address</label>
         {% endif %}
 
         <p><button class="btn">{{ button_label|default('SAVE') }}</button></p>

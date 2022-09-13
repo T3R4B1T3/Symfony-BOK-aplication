@@ -18,9 +18,6 @@ class Shop
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $city = null;
-
     #[ORM\OneToMany(mappedBy: 'shop', targetEntity: Report::class, orphanRemoval: true)]
     private Collection $reports;
 
@@ -42,18 +39,6 @@ class Shop
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(string $city): self
-    {
-        $this->city = $city;
 
         return $this;
     }

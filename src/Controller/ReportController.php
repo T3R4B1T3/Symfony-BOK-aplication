@@ -4,16 +4,17 @@ namespace App\Controller;
 
 use App\Entity\Report;
 use App\Entity\ReportLog;
+use App\Entity\State;
 use App\Form\ReportType;
 use App\Repository\ReportLogRepository;
 use App\Repository\ReportRepository;
+use App\Repository\StateRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use function PHPUnit\Framework\throwException;
 
 #[Route('/report')]
 class ReportController extends AbstractController
@@ -27,10 +28,9 @@ class ReportController extends AbstractController
     }
 
     #[Route('/new', name: 'app_report_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ReportRepository $reportRepository, ReportLogRepository $reportLogRepository): Response
+    public function new(Request $request, ReportRepository $reportRepository, ReportLogRepository $reportLogRepository, StateRepository $stateRepository): Response
     {
         $reportLog = new ReportLog();
-        $isAllowed = true;
 
         $report = new Report();
         $form = $this->createForm(ReportType::class, $report);
@@ -38,22 +38,18 @@ class ReportController extends AbstractController
         $report->setReportDate(new DateTimeImmutable());
         $report->setUserAgent($request->headers->get('User-Agent'));
 
-        if (!$request->request->get('checkbox')) {
-            $report->setPhoneNumber('');
-            $report->setEmail('');
-        } else {
-            $isAllowed = false;
-        }
-
         if ($form->isSubmitted()) {
-            if ($report->getPhoneNumber() != '' || $report->getEmail() != null) {
-                $isAllowed = true;
-            } else {
+            if ($report->getPhoneNumber() == '' && $report->getEmail() == '' && $request->request->get('checkbox')) {
                 $form->addError(new FormError("You agreed for notfications, so you need to add valid phone number or email"));
             }
-            if ($form->isValid() && $isAllowed) {
+            if ($form->isValid()) {
                 $reportLog->setSeen(0);
-                $reportLog->setState("new");
+                $reportLog->setState($stateRepository->findOneBy(["id" => 1]));
+                if ($request->request->get('checkbox')) {
+                    $report->setUserAgreement(true);
+                } else {
+                    $report->setUserAgreement(false);
+                }
                 $reportLogRepository->add($reportLog, true);
                 $report->setReportLog($reportLog);
                 $reportRepository->add($report, true);
@@ -69,15 +65,14 @@ class ReportController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_report_show', methods: ['GET'])]
-    public function show(Report $report, ReportLog $reportLog, ReportLogRepository $reportLogRepository): Response
+    public function show(Report $report, ReportLog $reportLog, ReportLogRepository $reportLogRepository, StateRepository $stateRepository): Response
     {
-
         if ($reportLog->isSeen() == 0) {
 
             $reportLog->setSeen('1');
+            $reportLog->setState($stateRepository->findOneBy(["id" => 2]));
             $reportLog->setReadDate(new DateTimeImmutable());
             $reportLog->setFirstWhoRead($this->getUser()->getUserIdentifier());
-            $reportLog->setState('in progress');
             $reportLogRepository->add($reportLog, true);
         }
         return $this->render('report/show.html.twig', [
@@ -86,10 +81,11 @@ class ReportController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_report_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Report $report, ReportLog $reportLog, ReportRepository $reportRepository): Response
+    public function edit(Request $request, Report $report, ReportLog $reportLog, ReportRepository $reportRepository, StateRepository $stateRepository): Response
     {
         $form = $this->createForm(ReportType::class, $report);
         $form->handleRequest($request);
+        $states = $stateRepository->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $reportLog->setState($request->request->get('state'));
@@ -100,6 +96,7 @@ class ReportController extends AbstractController
         return $this->renderForm('report/edit.html.twig', [
             'report' => $report,
             'form' => $form,
+            'states' => $states,
         ]);
     }
 
