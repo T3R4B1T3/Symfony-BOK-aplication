@@ -65,12 +65,11 @@ class ReportController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_report_show', methods: ['GET'])]
-    public function show(Report $report, ReportLog $reportLog, ReportLogRepository $reportLogRepository, StateRepository $stateRepository): Response
+    public function show(Report $report, ReportLog $reportLog, ReportLogRepository $reportLogRepository): Response
     {
         if ($reportLog->isSeen() == 0) {
 
             $reportLog->setSeen('1');
-            $reportLog->setState($stateRepository->findOneBy(["name" => "In progress"]));
             $reportLog->setReadDate(new DateTimeImmutable());
             $reportLog->setFirstWhoRead($this->getUser()->getUserIdentifier());
             $reportLogRepository->add($reportLog, true);
@@ -88,7 +87,7 @@ class ReportController extends AbstractController
         $states = $stateRepository->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $reportLog->setState($stateRepository->findOneBy(["name" => "In progress"]));
+            $reportLog->setState($stateRepository->findOneBy(["name" => $request->request->get("state")]));
             $reportRepository->add($report, true);
             return $this->redirectToRoute('app_report', [], Response::HTTP_SEE_OTHER);
         }
