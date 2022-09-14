@@ -44,7 +44,7 @@ class ReportController extends AbstractController
             }
             if ($form->isValid()) {
                 $reportLog->setSeen(0);
-                $reportLog->setState($stateRepository->findOneBy(["id" => 1]));
+                $reportLog->setState($stateRepository->findOneBy(["name" => "New"]));
                 if ($request->request->get('checkbox')) {
                     $report->setUserAgreement(true);
                 } else {
@@ -70,7 +70,7 @@ class ReportController extends AbstractController
         if ($reportLog->isSeen() == 0) {
 
             $reportLog->setSeen('1');
-            $reportLog->setState($stateRepository->findOneBy(["id" => 2]));
+            $reportLog->setState($stateRepository->findOneBy(["name" => "In progress"]));
             $reportLog->setReadDate(new DateTimeImmutable());
             $reportLog->setFirstWhoRead($this->getUser()->getUserIdentifier());
             $reportLogRepository->add($reportLog, true);
@@ -88,7 +88,7 @@ class ReportController extends AbstractController
         $states = $stateRepository->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $reportLog->setState($request->request->get('state'));
+            $reportLog->setState($stateRepository->findOneBy(["name" => "In progress"]));
             $reportRepository->add($report, true);
             return $this->redirectToRoute('app_report', [], Response::HTTP_SEE_OTHER);
         }

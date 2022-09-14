@@ -20,7 +20,7 @@ class Report
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 9, nullable: true)]
+    #[ORM\Column(length: 11, nullable: true)]
     private ?string $phone_number = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
