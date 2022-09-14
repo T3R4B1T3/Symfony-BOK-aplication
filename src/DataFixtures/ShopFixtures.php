@@ -12,11 +12,11 @@ class ShopFixtures extends Fixture
     {
         $values = [
             "Does not apply for physical shop",
-            "Media Markt - Long Street 3",
-            "Media Markt - Third road 7",
-            "EURO RTV AGD - Station Road 6",
-            "EURO RTV AGD - High Street 6",
-            "EURO RTV AGD - Sixth Street 9"
+            "Long Street 3",
+            "Third road 7",
+            "Station Road 6",
+            "High Street 6",
+            "Sixth Street 9"
         ];
 
         for($i = 0; $i < count($values); $i++){

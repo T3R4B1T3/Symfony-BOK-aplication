@@ -55,7 +55,7 @@ class ReportType extends AbstractType implements FormTypeInterface
                 ),
                 'constraints' =>[
                     new Regex([
-                            'pattern' => "/^\d{9}$/",
+                            'pattern' => "/^\d{3}-\d{3}-\d{3}$/",
                             'message' => "Phone number must contain excatly 9 digits"
                         ]
                     )]
