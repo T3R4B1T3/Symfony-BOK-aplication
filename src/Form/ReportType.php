@@ -51,11 +51,11 @@ class ReportType extends AbstractType implements FormTypeInterface
             ->add('phone_number',  TextType::class, [
                 'required' => false,
                 'attr'=>array(
-                    'placeholder' => '123456789'
+                    'placeholder' => '123-456-789'
                 ),
                 'constraints' =>[
                     new Regex([
-                            'pattern' => "/^\d{9}$/",
+                            'pattern' => "/^\d{3}-\d{3}-\d{3}$/",
                             'message' => "Phone number must contain excatly 9 digits"
                         ]
                     )]
