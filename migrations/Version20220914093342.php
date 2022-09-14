@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220913135501 extends AbstractMigration
+final class Version20220914093342 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -21,7 +21,7 @@ final class Version20220913135501 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE category (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE report (id INT AUTO_INCREMENT NOT NULL, category_id INT NOT NULL, shop_id INT NOT NULL, report_log_id INT NOT NULL, description LONGTEXT NOT NULL, email VARCHAR(255) DEFAULT NULL, phone_number VARCHAR(9) DEFAULT NULL, report_date DATE NOT NULL, user_agent VARCHAR(255) NOT NULL, user_agreement TINYINT(1) NOT NULL, INDEX IDX_C42F778412469DE2 (category_id), INDEX IDX_C42F77844D16C4DD (shop_id), UNIQUE INDEX UNIQ_C42F7784C3948819 (report_log_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE report (id INT AUTO_INCREMENT NOT NULL, category_id INT NOT NULL, shop_id INT NOT NULL, report_log_id INT NOT NULL, description LONGTEXT NOT NULL, email VARCHAR(255) DEFAULT NULL, phone_number VARCHAR(11) DEFAULT NULL, report_date DATE NOT NULL, user_agent VARCHAR(255) NOT NULL, user_agreement TINYINT(1) NOT NULL, INDEX IDX_C42F778412469DE2 (category_id), INDEX IDX_C42F77844D16C4DD (shop_id), UNIQUE INDEX UNIQ_C42F7784C3948819 (report_log_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE report_log (id INT AUTO_INCREMENT NOT NULL, state_id INT NOT NULL, seen TINYINT(1) NOT NULL, first_who_read VARCHAR(255) DEFAULT NULL, read_date DATE DEFAULT NULL, INDEX IDX_7FC410425D83CC1 (state_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE shop (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE state (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
