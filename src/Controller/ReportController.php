@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Report;
 use App\Entity\ReportLog;
-use App\Entity\State;
 use App\Form\ReportType;
 use App\Repository\ReportLogRepository;
 use App\Repository\ReportRepository;
