@@ -4,10 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Report;
 use App\Entity\ReportLog;
+use App\Entity\Comment;
 use App\Form\ReportType;
+use App\Form\CommentType;
 use App\Repository\ReportLogRepository;
 use App\Repository\ReportRepository;
 use App\Repository\StateRepository;
+use App\Repository\CommentRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
@@ -39,7 +42,7 @@ class ReportController extends AbstractController
 
         if ($form->isSubmitted()) {
             if ($report->getPhoneNumber() == '' && $report->getEmail() == '' && $request->request->get('checkbox')) {
-                $form->addError(new FormError("You agreed for notfications, so you need to add valid phone number or email"));
+                $form->addError(new FormError("You agreed for notifications, so you need to add valid phone number or email"));
             }
             if ($form->isValid()) {
                 $reportLog->setSeen(0);
@@ -64,17 +67,33 @@ class ReportController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_report_show', methods: ['GET'])]
-    public function show(Report $report, ReportLog $reportLog, ReportLogRepository $reportLogRepository): Response
+    public function show(Request $request, Report $report, ReportLog $reportLog, ReportLogRepository $reportLogRepository, CommentRepository $commentRepository): Response
     {
-        if ($reportLog->isSeen() == 0) {
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
 
+        $comments = $commentRepository->findBy(['reportLog' => $reportLog]);
+
+        if ($reportLog->isSeen() == 0) {
             $reportLog->setSeen('1');
             $reportLog->setReadDate(new DateTimeImmutable());
             $reportLog->setFirstWhoRead($this->getUser()->getUserIdentifier());
             $reportLogRepository->add($reportLog, true);
         }
-        return $this->render('report/show.html.twig', [
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setUsername($this->getUser()->getUserIdentifier());
+            $comment->setReportLog($reportLog);
+            $commentRepository->add($comment, true);
+
+            return $this->redirectToRoute('app_report_show', ["id" => $request->attributes->get('id')]);
+        }
+
+        return $this->renderForm('report/show.html.twig', [
             'report' => $report,
+            'form' => $form,
+            'comments' => $comments,
         ]);
     }
 

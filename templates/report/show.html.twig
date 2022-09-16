@@ -43,6 +43,25 @@
             </tbody>
         </table>
         <a id="blueedit" href="{{ path('app_report_edit', {'id': report.id}) }}">EDIT</a>
+
+        <p>COMMENTS</p>
+
+        {% if comments is not empty %}
+            {% for comment in comments %}
+                <p>{{ comment.username }}</p>
+                <p>{{ comment.content }}</p>
+            {% endfor %}
+        {% else %}
+            <p>No comments</p>
+        {% endif %}
+
+        <p>ADD COMMENT</p>
+
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+            <p><button type="submit" class="btn">Submit button</button></p>
+        {{ form_end(form) }}
+
         <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
     </div>
 {% endblock %}

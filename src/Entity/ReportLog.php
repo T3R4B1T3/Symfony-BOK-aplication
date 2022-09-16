@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ReportLogRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -29,6 +31,18 @@ class ReportLog
     #[ORM\ManyToOne(inversedBy: 'reportLogs')]
     #[ORM\JoinColumn(nullable: false)]
     private ?State $state = null;
+
+    #[ORM\OneToMany(mappedBy: 'reportLog', targetEntity: Comment::class)]
+    private Collection $comments;
+
+    public function __toString() {
+        return strval($this->id);
+    }
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -96,6 +110,36 @@ class ReportLog
     public function setState(?State $state): self
     {
         $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setReportLog($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getReportLog() === $this) {
+                $comment->setReportLog(null);
+            }
+        }
 
         return $this;
     }
