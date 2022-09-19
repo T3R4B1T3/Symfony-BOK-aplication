@@ -14,68 +14,66 @@ class Comment
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $username = null;
-
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $content = null;
-
-    #[ORM\ManyToOne(inversedBy: 'comments')]
-    private ?ReportLog $reportLog = null;
+    private ?string $Content = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date = null;
+    private ?\DateTimeInterface $Date = null;
+
+    #[ORM\ManyToOne(inversedBy: 'UserId')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $User = null;
+
+    #[ORM\ManyToOne(inversedBy: 'ReportId')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Report $Report = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
     public function getContent(): ?string
     {
-        return $this->content;
+        return $this->Content;
     }
 
-    public function setContent(string $content): self
+    public function setContent(string $Content): self
     {
-        $this->content = $content;
-
+        $this->Content = $Content;
         return $this;
     }
 
-    public function getReportLog(): ?ReportLog
+    public function getDate(): \DateTimeInterface
     {
-        return $this->reportLog;
+        return $this->Date;
     }
 
-    public function setReportLog(?ReportLog $reportLog): self
+    public function setDate(\DateTimeImmutable $Date): self
     {
-        $this->reportLog = $reportLog;
-
+        $this->Date = $Date;
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getUser(): ?User
     {
-        return $this->date;
+        return $this->User;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setUser(?User $User): self
     {
-        $this->date = $date;
+        $this->User = $User;
+        return $this;
+    }
 
+    public function getReport(): ?Report
+    {
+        return $this->Report;
+    }
+
+    public function setReport(?Report $Report): self
+    {
+        $this->Report = $Report;
         return $this;
     }
 }

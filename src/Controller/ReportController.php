@@ -2,15 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Report;
 use App\Entity\ReportLog;
-use App\Entity\Comment;
-use App\Form\ReportType;
 use App\Form\CommentType;
+use App\Form\ReportType;
+use App\Repository\CommentRepository;
 use App\Repository\ReportLogRepository;
 use App\Repository\ReportRepository;
 use App\Repository\StateRepository;
-use App\Repository\CommentRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
@@ -66,27 +66,9 @@ class ReportController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_report_show', methods: ['GET'])]
-    public function show(Request $request, Report $report, ReportLog $reportLog, ReportLogRepository $reportLogRepository, CommentRepository $commentRepository): Response
+    #[Route('/{id}', name: 'app_report_show', methods: ['GET','POST'])]
+    public function show(Report $report, ReportLog $reportLog, ReportLogRepository $reportLogRepository, CommentRepository $commentRepository,Request $request): Response
     {
-        $comment = new Comment();
-        $form = $this->createForm(CommentType::class, $comment);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted()) {
-            $form->addError(new FormError("EROOR MESSAGE"));
-            if($form->isValid()){
-                $comment->setUsername($this->getUser()->getUserIdentifier());
-                $comment->setReportLog($reportLog);
-                $comment->setDate(new DateTimeImmutable());
-                $commentRepository->add($comment, true);
-
-                return $this->redirectToRoute('app_report_show', ["id" => $request->attributes->get('id')]);
-            }
-        }
-
-        $comments = $commentRepository->findBy(['reportLog' => $reportLog]);
-
         if ($reportLog->isSeen() == 0) {
             $reportLog->setSeen('1');
             $reportLog->setReadDate(new DateTimeImmutable());
@@ -94,10 +76,24 @@ class ReportController extends AbstractController
             $reportLogRepository->add($reportLog, true);
         }
 
+            $comments = $commentRepository->findBy(['Report' => $report]);
+            $comment = new Comment();
+            $form = $this->createForm(CommentType::class, $comment);
+            $form->handleRequest($request);
+
+            if($form->isSubmitted()&&$form->isValid()){
+                $comment->setReport($report);
+                $comment->setDate(new DateTimeImmutable());
+                $comment->setUser($this->getUser());
+                $commentRepository->add($comment, true);
+
+            }
+
+
         return $this->renderForm('report/show.html.twig', [
             'report' => $report,
             'form' => $form,
-            'comments' => $comments,
+            'comments'=>$comments
         ]);
     }
 

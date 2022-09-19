@@ -66,26 +66,22 @@
             <a id="backtohomepage" href="{{ path('app_report_show', {'id': report.id}) }}" onclick="contactLoad()">CONTACT</a>
         {% endif %}
 
+        <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
+
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+
         <p>COMMENTS</p>
 
         {% if comments is not empty %}
             {% for comment in comments %}
-                <p>{{ comment.username }}</p>
+                <p>{{ comment.user.username}}</p>
                 <p>{{ comment.content }}</p>
+                {#                <p>{{ comment.date ? comment.date|date('Y-m-d') : '' }}</p>#}
             {% endfor %}
         {% else %}
             <p>No comments</p>
         {% endif %}
-
-        <p>ADD COMMENT</p>
-
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <p>
-            <button type="submit">SUBMIT COMMENT</button>
-        </p>
-        {{ form_end(form) }}
-
-        <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
     </div>
 {% endblock %}
