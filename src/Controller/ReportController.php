@@ -85,6 +85,7 @@ class ReportController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setUsername($this->getUser()->getUserIdentifier());
             $comment->setReportLog($reportLog);
+            $comment->setDate(new DateTimeImmutable());
             $commentRepository->add($comment, true);
 
             return $this->redirectToRoute('app_report_show', ["id" => $request->attributes->get('id')]);

@@ -23,6 +23,9 @@ class Comment
     #[ORM\ManyToOne(inversedBy: 'comments')]
     private ?ReportLog $reportLog = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $date = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Comment
     public function setReportLog(?ReportLog $reportLog): self
     {
         $this->reportLog = $reportLog;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }
