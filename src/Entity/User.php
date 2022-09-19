@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -28,6 +30,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\OneToMany(mappedBy: 'User', targetEntity: Comment::class, orphanRemoval: true)]
+    private Collection $UserId;
+
+    public function __construct()
+    {
+        $this->UserId = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -97,5 +107,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getUserId(): Collection
+    {
+        return $this->UserId;
+    }
+
+    public function addUserId(Comment $userId): self
+    {
+        if (!$this->UserId->contains($userId)) {
+            $this->UserId->add($userId);
+            $userId->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserId(Comment $userId): self
+    {
+        if ($this->UserId->removeElement($userId)) {
+            // set the owning side to null (unless already changed)
+            if ($userId->getUser() === $this) {
+                $userId->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

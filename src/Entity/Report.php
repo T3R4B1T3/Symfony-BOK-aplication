@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ReportRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -43,6 +45,14 @@ class Report
 
     #[ORM\Column]
     private ?bool $user_agreement = null;
+
+    #[ORM\OneToMany(mappedBy: 'Report', targetEntity: Comment::class, orphanRemoval: true)]
+    private Collection $ReportId;
+
+    public function __construct()
+    {
+        $this->ReportId = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -153,6 +163,36 @@ class Report
     public function setUserAgreement(bool $user_agreement): self
     {
         $this->user_agreement = $user_agreement;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getReportId(): Collection
+    {
+        return $this->ReportId;
+    }
+
+    public function addReportId(Comment $reportId): self
+    {
+        if (!$this->ReportId->contains($reportId)) {
+            $this->ReportId->add($reportId);
+            $reportId->setReport($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReportId(Comment $reportId): self
+    {
+        if ($this->ReportId->removeElement($reportId)) {
+            // set the owning side to null (unless already changed)
+            if ($reportId->getReport() === $this) {
+                $reportId->setReport(null);
+            }
+        }
 
         return $this;
     }

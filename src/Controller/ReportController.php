@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Report;
 use App\Entity\ReportLog;
+use App\Form\CommentType;
 use App\Form\ReportType;
+use App\Repository\CommentRepository;
 use App\Repository\ReportLogRepository;
 use App\Repository\ReportRepository;
 use App\Repository\StateRepository;
@@ -63,8 +66,8 @@ class ReportController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_report_show', methods: ['GET'])]
-    public function show(Report $report, ReportLog $reportLog, ReportLogRepository $reportLogRepository): Response
+    #[Route('/{id}', name: 'app_report_show', methods: ['GET','POST'])]
+    public function show(Report $report, ReportLog $reportLog, ReportLogRepository $reportLogRepository, CommentRepository $commentRepository,Request $request): Response
     {
         if ($reportLog->isSeen() == 0) {
 
@@ -73,8 +76,25 @@ class ReportController extends AbstractController
             $reportLog->setFirstWhoRead($this->getUser()->getUserIdentifier());
             $reportLogRepository->add($reportLog, true);
         }
-        return $this->render('report/show.html.twig', [
+
+            $comments = $commentRepository->findBy(['Report' => $report]);
+            $comment = new Comment();
+            $form = $this->createForm(CommentType::class, $comment);
+            $form->handleRequest($request);
+
+            if($form->isSubmitted()&&$form->isValid()){
+                $comment->setReport($report);
+                $comment->setDate(new DateTimeImmutable());
+                $comment->setUser($this->getUser());
+                $commentRepository->add($comment, true);
+
+            }
+
+
+        return $this->renderForm('report/show.html.twig', [
             'report' => $report,
+            'form' => $form,
+            'comments'=>$comments
         ]);
     }
 

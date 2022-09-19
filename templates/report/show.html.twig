@@ -40,9 +40,48 @@
                 <th>Status</th>
                 <td>{{ report.ReportLog.state.name }}</td>
             </tr>
+            <tr>
+                <th>User agreement for contact</th>
+                <td>{% if report.userAgreement == 1 %}
+                        Agreed
+                    {% else %}
+                        Not agreed
+                    {% endif %}
+                </td>
+            </tr>
             </tbody>
         </table>
         <a id="blueedit" href="{{ path('app_report_edit', {'id': report.id}) }}">EDIT</a>
+        <script>
+            function contactLoad() {
+                alert("User agreed for contact.\n" +
+                    "Phone number: {{ report.phoneNumber }}\n" +
+                    "Email: {{ report.email }}\n");
+            }
+        </script>
+
+        {% if report.UserAgreement == 1 %}
+            <a id="backtohomepage" href="{{ path('app_report_show', {'id': report.id}) }}" onclick="contactLoad()">CONTACT</a>
+        {% endif %}
         <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
+    </div>
+    <div>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+
+    </div>
+    <div>
+        <p>COMMENTS</p>
+
+        {% if comments is not empty %}
+            {% for comment in comments %}
+                <p>{{ comment.user.username}}</p>
+                <p>{{ comment.content }}</p>
+{#                <p>{{ comment.date ? comment.date|date('Y-m-d') : '' }}</p>#}
+            {% endfor %}
+        {% else %}
+            <p>No comments</p>
+        {% endif %}
     </div>
 {% endblock %}

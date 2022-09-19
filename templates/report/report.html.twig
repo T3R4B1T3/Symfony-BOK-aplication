@@ -23,9 +23,9 @@
                 <td>{{ report.Category.name }}</td>
                 <td>
                     {% if report.ReportLog.seen == 1 %}
-                        "seen"
+                        Seen
                     {% else %}
-                        "not seen"
+                        Not seen
                     {% endif %}
                 </td>
                 <td>{{ report.reportDate ? report.reportDate|date('Y-m-d') : '' }}</td>
