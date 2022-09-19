@@ -73,6 +73,18 @@ class ReportController extends AbstractController
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
+        if ($form->isSubmitted()) {
+            $form->addError(new FormError("EROOR MESSAGE"));
+            if($form->isValid()){
+                $comment->setUsername($this->getUser()->getUserIdentifier());
+                $comment->setReportLog($reportLog);
+                $comment->setDate(new DateTimeImmutable());
+                $commentRepository->add($comment, true);
+
+                return $this->redirectToRoute('app_report_show', ["id" => $request->attributes->get('id')]);
+            }
+        }
+
         $comments = $commentRepository->findBy(['reportLog' => $reportLog]);
 
         if ($reportLog->isSeen() == 0) {
@@ -80,15 +92,6 @@ class ReportController extends AbstractController
             $reportLog->setReadDate(new DateTimeImmutable());
             $reportLog->setFirstWhoRead($this->getUser()->getUserIdentifier());
             $reportLogRepository->add($reportLog, true);
-        }
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setUsername($this->getUser()->getUserIdentifier());
-            $comment->setReportLog($reportLog);
-            $comment->setDate(new DateTimeImmutable());
-            $commentRepository->add($comment, true);
-
-            return $this->redirectToRoute('app_report_show', ["id" => $request->attributes->get('id')]);
         }
 
         return $this->renderForm('report/show.html.twig', [
