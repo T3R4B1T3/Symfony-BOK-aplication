@@ -21,6 +21,18 @@ class Shop
     #[ORM\OneToMany(mappedBy: 'shop', targetEntity: Report::class, orphanRemoval: true)]
     private Collection $reports;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $City = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $PostCode = null;
+
+    #[ORM\Column(length: 11, nullable: true)]
+    private ?string $PhoneNumber = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Region = null;
+
     public function __construct()
     {
         $this->reports = new ArrayCollection();
@@ -69,6 +81,54 @@ class Shop
                 $report->setShop(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->City;
+    }
+
+    public function setCity(?string $City): self
+    {
+        $this->City = $City;
+
+        return $this;
+    }
+
+    public function getPostCode(): ?string
+    {
+        return $this->PostCode;
+    }
+
+    public function setPostCode(?string $PostCode): self
+    {
+        $this->PostCode = $PostCode;
+
+        return $this;
+    }
+
+    public function getPhoneNumber(): ?string
+    {
+        return $this->PhoneNumber;
+    }
+
+    public function setPhoneNumber(?string $PhoneNumber): self
+    {
+        $this->PhoneNumber = $PhoneNumber;
+
+        return $this;
+    }
+
+    public function getRegion(): ?string
+    {
+        return $this->Region;
+    }
+
+    public function setRegion(?string $Region): self
+    {
+        $this->Region = $Region;
 
         return $this;
     }
