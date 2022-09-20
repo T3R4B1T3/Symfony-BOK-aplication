@@ -87,6 +87,9 @@ class ReportController extends AbstractController
                 $comment->setUser($this->getUser());
                 $commentRepository->add($comment, true);
 
+
+                return $this->redirectToRoute('app_report_show', ["id" => $request->attributes->get('id')]);
+
             }
 
 
@@ -126,5 +129,6 @@ class ReportController extends AbstractController
 
         return $this->redirectToRoute('app_report', [], Response::HTTP_SEE_OTHER);
     }
+
 
 }
