@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ReportRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -20,7 +22,7 @@ class Report
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 9, nullable: true)]
+    #[ORM\Column(length: 11, nullable: true)]
     private ?string $phone_number = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -40,6 +42,17 @@ class Report
     #[ORM\OneToOne(inversedBy: 'report', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?ReportLog $report_log = null;
+
+    #[ORM\Column]
+    private ?bool $user_agreement = null;
+
+    #[ORM\OneToMany(mappedBy: 'Report', targetEntity: Comment::class, orphanRemoval: true)]
+    private Collection $ReportId;
+
+    public function __construct()
+    {
+        $this->ReportId = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -138,6 +151,48 @@ class Report
     public function setReportLog(ReportLog $report_log): self
     {
         $this->report_log = $report_log;
+
+        return $this;
+    }
+
+    public function isUserAgreement(): ?bool
+    {
+        return $this->user_agreement;
+    }
+
+    public function setUserAgreement(bool $user_agreement): self
+    {
+        $this->user_agreement = $user_agreement;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getReportId(): Collection
+    {
+        return $this->ReportId;
+    }
+
+    public function addReportId(Comment $reportId): self
+    {
+        if (!$this->ReportId->contains($reportId)) {
+            $this->ReportId->add($reportId);
+            $reportId->setReport($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReportId(Comment $reportId): self
+    {
+        if ($this->ReportId->removeElement($reportId)) {
+            // set the owning side to null (unless already changed)
+            if ($reportId->getReport() === $this) {
+                $reportId->setReport(null);
+            }
+        }
 
         return $this;
     }

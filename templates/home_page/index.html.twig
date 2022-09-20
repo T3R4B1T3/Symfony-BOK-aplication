@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome to the homepage{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 id="hm1">Homepage</h1>
+        <div id="newreport"><a href="{{ path('app_report_new') }}">
+                ADD REPORT
+            </a></div>
+
+        {% if app.user is empty %}
+            <div id="login"><a href="{{ path('app_login') }}">
+                LOGIN
+                </a></div><br>
+        {% endif %}
+
+        {% if is_granted("ROLE_ADMIN") %}
+            <div id="reportlist"><a href="{{ path('app_report') }}">
+                    REPORT LIST
+                </a></div>
+
+            <div id="register"><a href="{{ path('app_register') }}">
+                REGISTER
+                </a></div>
+        {% endif %}
+        {% if app.user is not empty %}
+            <div id="logout"><a href="{{ path('app_logout') }}">
+                LOGOUT
+            </a></div>
+            You are logged as: <b>{{ app.user.username }}</b>
+        {% endif %}
+    </div>
+{% endblock %}
+

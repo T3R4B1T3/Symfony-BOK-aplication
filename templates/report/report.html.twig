@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Report list{% endblock %}
+
+{% block body %}
+    <div class="container" id="reportindex">
+    <h1>Report list</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Category</th>
+            <th>Seen</th>
+            <th>Report date</th>
+            <th>State</th>
+            <th colspan="2">Actions</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for report in reports %}
+            <tr>
+                <td>{{ report.Category.name }}</td>
+                <td>
+                    {% if report.ReportLog.seen == 1 %}
+                        Seen
+                    {% else %}
+                        Not seen
+                    {% endif %}
+                </td>
+                <td>{{ report.reportDate ? report.reportDate|date('Y-m-d') : '' }}</td>
+                <td>{{ report.ReportLog.state.name }}</td>
+                <td><a id="show" href="{{ path('app_report_show', {'id': report.id}) }}">SHOW</a></td>
+                <td><a id="edit" href="{{ path('app_report_edit', {'id': report.id}) }}">EDIT</a></td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if is_granted("ROLE_ADMIN") %}
+        <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
+        </div>
+    {% endif %}
+{% endblock %}
