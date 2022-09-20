@@ -66,7 +66,7 @@ class ReportController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_report_show', methods: ['GET','POST'])]
+    #[Route('/show/{id}', name: 'app_report_show', methods: ['GET','POST'])]
     public function show(Report $report, ReportLog $reportLog, ReportLogRepository $reportLogRepository, CommentRepository $commentRepository,Request $request): Response
     {
         if ($reportLog->isSeen() == 0) {
