@@ -34,9 +34,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'User', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $UserId;
 
+    #[ORM\OneToMany(mappedBy: 'User', targetEntity: Role::class, orphanRemoval: true)]
+    private Collection $Roles;
+
     public function __construct()
     {
         $this->UserId = new ArrayCollection();
+        $this->Roles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -133,6 +137,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($userId->getUser() === $this) {
                 $userId->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function addRole(Role $role): self
+    {
+        if (!$this->Roles->contains($role)) {
+            $this->Roles->add($role);
+            $role->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRole(Role $role): self
+    {
+        if ($this->Roles->removeElement($role)) {
+            // set the owning side to null (unless already changed)
+            if ($role->getUser() === $this) {
+                $role->setUser(null);
             }
         }
 
