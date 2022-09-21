@@ -1,20 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ShopController!{% endblock %}
+{% block title %}SHOP LIST!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Street</th>
+            <th>PhoneNumber</th>
+            <th>PostCode</th>
+            <th>City</th>
+            <th>Region</th>
+            <th colspan="2">Actions</th>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        </tr>
+        </thead>
+        <tbody>
+        {% for shop in shops %}
+            <tr>
+                <td>{{ shop.name }}</td>
+                <td>{{ shop.phonenumber}}</td>
+                <td>{{ shop.postcode }}</td>
+                <td>{{ shop.city }}</td>
+                <td>{{ shop.region }}</td>
+                <td><a id="edit" href="{{ path('app_shop_edit', {'id': shop.id}) }}">EDIT</a></td>
+                <td>  {{ include('shop/delete.html.twig') }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/mkopczyk/Pulpit/Symfony-BOK-aplication/src/Controller/ShopController.php'|file_link(0) }}">src/Controller/ShopController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/mkopczyk/Pulpit/Symfony-BOK-aplication/templates/shop/index.html.twig'|file_link(0) }}">templates/shop/index.html.twig</a></code></li>
-    </ul>
-</div>
+    </table>
+    <p><a href="{{ path('app_shop_new') }}">ADD NEW SHOP</a></p>
 {% endblock %}

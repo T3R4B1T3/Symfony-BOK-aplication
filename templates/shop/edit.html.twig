@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit shop{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Edit Shop</h1>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <script type="text/javascript">
+
+            document.getElementById('shop_PhoneNumber').addEventListener('input', function (y) {
+                var a = y.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,3})/);
+                y.target.value = !a[2] ? a[1] :  a[1] + '-' + a[2] + (a[3] ? '-' + a[3] : '');
+            });
+            document.getElementById('shop_PostCode').addEventListener('input', function (y) {
+                var a = y.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,3})/);
+                y.target.value = !a[2] ? a[1] :  a[1] + '-' + (a[3] ? '-' + a[3] : '')+a[2];
+            });
+        </script>
+        <p><button class="btn">{{ button_label|default('SAVE') }}</button></p>
+        {{ form_end(form) }}
+        <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
+    </div>
+{% endblock %}
