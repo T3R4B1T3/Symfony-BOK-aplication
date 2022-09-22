@@ -1,22 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ROLE LIST!{% endblock %}
+{% block title %}USERS LIST!{% endblock %}
 
 {% block body %}
     <table class="table">
         <thead>
         <tr>
-            <th>Role</th>
+            <th>Username</th>
+            <th>Roles</th>
             <th colspan="2">Actions</th>
         </tr>
         </thead>
         <tbody>
-        {% for role in roles %}
+        {% for user in users %}
             <tr>
-                <td>{{ role.name }}</td>
-                {% if app.request.get('_route') == 'app_role' %}
-                {% endif %}
-                <td>{{ include('role/delete.html.twig') }}</td>
+                <td>{{ user.username }}</td>
+{#               <td> {%for role in roles.name%}#}
+{#                {{role}}#}
+{#                {% endfor %}</td>#}
+                <td>DELETE</td>
             </tr>
         {% else %}
             <tr>
@@ -26,6 +28,5 @@
         </tbody>
 
     </table>
-    <p><a href="{{ path('app_role_new') }}">ADD NEW ROLE</a></p>
     <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
 {% endblock %}

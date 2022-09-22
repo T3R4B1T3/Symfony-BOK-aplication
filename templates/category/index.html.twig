@@ -1,20 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CategoryController!{% endblock %}
+{% block title %}Category LIST!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th colspan="2">Actions</th>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        </tr>
+        </thead>
+        <tbody>
+        {% for cat in categories %}
+            <tr>
+                <td>{{ cat.name }}</td>
+                <td><a id="edit" href="{{ path('app_category_edit', {'id': cat.id}) }}">EDIT</a></td>
+                <td>  {{ include('category/delete.html.twig') }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/mkopczyk/Pulpit/Symfony-BOK-aplication/src/Controller/CategoryController.php'|file_link(0) }}">src/Controller/CategoryController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/mkopczyk/Pulpit/Symfony-BOK-aplication/templates/category/index.html.twig'|file_link(0) }}">templates/category/index.html.twig</a></code></li>
-    </ul>
-</div>
+    </table>
+    <p><a href="{{ path('app_category_new') }}">ADD NEW CATEGORY</a></p>
+    <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
 {% endblock %}

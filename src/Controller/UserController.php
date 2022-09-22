@@ -2,20 +2,20 @@
 
 namespace App\Controller;
 
-use App\Entity\Shop;
-use App\Form\ShopType;
-use App\Repository\ShopRepository;
+use App\Repository\RoleRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-class ShopController extends AbstractController
+class UserController extends AbstractController
 {
-    #[Route('/shop', name: 'app_shop',methods: ['GET'])]
-    public function index(ShopRepository $shopRepository): Response
+    #[Route('/user/list', name: 'app_users',methods: ['GET'])]
+    public function index(UserRepository $userRepository,RoleRepository $roleRepository): Response
     {
-        return $this->render('shop/index.html.twig', [
-            'shops' => $shopRepository->findAll(),
+        return $this->render('user/index.html.twig', [
+            'users' => $userRepository->findAll(),
+            'roles'=>$roleRepository->findAll(),
         ]);
     }
     #[Route('/shop/new', name: 'app_shop_new', methods: ['GET','POST'])]
