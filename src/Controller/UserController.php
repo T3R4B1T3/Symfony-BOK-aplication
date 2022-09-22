@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,52 +12,20 @@ use Symfony\Component\HttpFoundation\Request;
 class UserController extends AbstractController
 {
     #[Route('/user/list', name: 'app_users',methods: ['GET'])]
-    public function index(UserRepository $userRepository,RoleRepository $roleRepository): Response
+    public function index(UserRepository $userRepository): Response
     {
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
-            'roles'=>$roleRepository->findAll(),
-        ]);
-    }
-    #[Route('/shop/new', name: 'app_shop_new', methods: ['GET','POST'])]
-    public function show(ShopRepository $shopRepository,Request $request): Response
-    {
-        $shop = new Shop();
-        $form = $this->createForm(ShopType::class, $shop);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()){
-            $shopRepository->add($shop,true);
-            return $this->redirectToRoute('app_shop', [], Response::HTTP_SEE_OTHER);
-        }
-        return $this->renderForm('shop/new.html.twig', [
-            'form' => $form,
-        ]);
-    }
-    #[Route('/shop/{id}/edit', name: 'app_shop_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request,ShopRepository $shopRepository,Shop $shop): Response
-    {
-
-        $form = $this->createForm(ShopType::class, $shop);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $shopRepository->add($shop, true);
-            return $this->redirectToRoute('app_shop', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('shop/edit.html.twig', [
-            'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_shop_delete', methods: ['POST'])]
-    public function delete(Request $request, Shop $shop, ShopRepository $shopRepository): Response
+    #[Route('/user/delete/{id}', name: 'app_user_delete', methods: ['POST'])]
+    public function delete(Request $request, User $user, UserRepository $userRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $shop->getId(), $request->request->get('_token'))) {
-            $shopRepository->remove($shop, true);
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+            $userRepository->remove($user, true);
         }
 
-        return $this->redirectToRoute('app_shop', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_users', [], Response::HTTP_SEE_OTHER);
     }
 }
