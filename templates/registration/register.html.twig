@@ -6,12 +6,13 @@
     <div class="container">
     <h1>Register</h1>
 
-    {{ form_start(registrationForm) }}
+        {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.username) }}
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
-        <button type="submit" id="loginbtn">REGISTER</button>
+        {{ form_row(registrationForm.role) }}
+        <button type="submit">REGISTER</button>
         {{ form_end(registrationForm) }}
     </div>
 {% endblock %}
