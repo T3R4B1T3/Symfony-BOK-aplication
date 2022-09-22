@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit report{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Edit user</h1>
+        {{ form_start(form) }}
+        {{ form_row(form.username) }}
+        {{ form_row(form.role) }}
+        <p><button class="btn">{{ button_label|default('SAVE') }}</button></p>
+        {{ form_end(form, {render_rest: false}) }}
+        <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
+    </div>
+{% endblock %}
