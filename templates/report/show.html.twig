@@ -4,6 +4,7 @@
 
 {% block body %}
     <div class="container" id="showreport">
+
         <h1>Report</h1>
 
         <table class="tablereport">
@@ -12,14 +13,61 @@
                 <th>Description</th>
                 <td>{{ report.description }}</td>
             </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ report.email }}</td>
-            </tr>
-            <tr>
-                <th>Phone number</th>
-                <td>{{ report.phoneNumber }}</td>
-            </tr>
+
+                <tr id="mail">
+                    <th>Email</th>
+                    <td>{{ report.email }}</td>
+                </tr>
+
+                <tr id="number">
+                    <th>Phone number</th>
+                    <td>{{ report.phoneNumber }}</td>
+                </tr>
+
+            <script>
+                function contactLoad() {
+                    document.getElementById("mail").hidden = false;
+                    document.getElementById("number").hidden = false;
+                    document.getElementById("contact").hidden = true;
+                }
+            </script>
+
+            {% if is_granted("ROLE_ADMIN") %}
+                <script>
+                        document.getElementById("mail").hidden = false;
+                        document.getElementById("number").hidden = false;
+                        document.getElementById("contact").hidden = true;
+                </script>
+
+                {% elseif is_granted("ROLE_USER") and report.UserAgreement == 1%}
+                <script>
+                    document.getElementById("mail").hidden = true;
+                    document.getElementById("number").hidden = true;
+                    document.getElementById("contact").hidden = false;
+                </script>
+
+                <tr id="contact">
+                    <th>Contact</th>
+                    <td><button id="contactbtn" onclick="contactLoad()">CONTACT</button></td>
+                </tr>
+
+                {% else %}
+                <script>
+                    document.getElementById("mail").hidden = true;
+                    document.getElementById("number").hidden = true;
+                    document.getElementById("contact").hidden = false;
+                </script>
+
+                <tr id="contact">
+                    <th>Contact</th>
+                    <td><button id="nocontactbtn" onclick="noContact()">CONTACT</button>
+                        {% if report.userAgreement == 0 %}
+                            <h4>User doesn't agree for contacting him!</h4>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+
             <tr>
                 <th>Report date</th>
                 <td>{{ report.reportDate ? report.reportDate|date('Y-m-d') : '' }}</td>
@@ -40,31 +88,10 @@
                 <th>Status</th>
                 <td>{{ report.ReportLog.state.name }}</td>
             </tr>
-            <tr>
-                <th>User agreement for contact</th>
-                <td>{% if report.userAgreement == 1 %}
-                        Agreed
-                    {% else %}
-                        Not agreed
-                    {% endif %}
-                </td>
-            </tr>
             </tbody>
         </table>
 
         <a id="blueedit" href="{{ path('app_report_edit', {'id': report.id}) }}">EDIT</a>
-
-        <script>
-            function contactLoad() {
-                alert("User agreed for contact.\n" +
-                    "Phone number: {{ report.phoneNumber }}\n" +
-                    "Email: {{ report.email }}\n");
-            }
-        </script>
-
-        {% if report.UserAgreement == 1 %}
-            <a id="backtohomepage" href="{{ path('app_report_show', {'id': report.id}) }}" onclick="contactLoad()">CONTACT</a>
-        {% endif %}
 
         <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
 

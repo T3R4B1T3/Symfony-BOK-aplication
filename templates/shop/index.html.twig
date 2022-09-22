@@ -3,6 +3,9 @@
 {% block title %}SHOP LIST!{% endblock %}
 
 {% block body %}
+<div class="container" id="shopindex">
+    <h1>Shop list</h1>
+
     <table class="table">
         <thead>
         <tr>
@@ -12,7 +15,7 @@
             <th>City</th>
             <th>Region</th>
             <th colspan="2">Actions</th>
-
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -24,7 +27,7 @@
                 <td>{{ shop.city }}</td>
                 <td>{{ shop.region }}</td>
                 <td><a id="edit" href="{{ path('app_shop_edit', {'id': shop.id}) }}">EDIT</a></td>
-                <td>  {{ include('shop/delete.html.twig') }}</td>
+                <td>{{ include('shop/delete.html.twig') }}</td>
             </tr>
         {% else %}
             <tr>
@@ -34,5 +37,7 @@
         </tbody>
 
     </table>
-    <p><a href="{{ path('app_shop_new') }}">ADD NEW SHOP</a></p>
+    <a id="backtohomepage" href="{{ path('app_shop_new') }}">ADD NEW SHOP</a>
+    <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
+</div>
 {% endblock %}

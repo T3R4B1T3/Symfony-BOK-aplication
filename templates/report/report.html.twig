@@ -40,8 +40,6 @@
         {% endfor %}
         </tbody>
     </table>
-    {% if is_granted("ROLE_ADMIN") %}
         <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
         </div>
-    {% endif %}
 {% endblock %}

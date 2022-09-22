@@ -15,18 +15,18 @@
                 </a></div><br>
         {% endif %}
 
-        {% if is_granted("ROLE_ADMIN") %}
+        {% if is_granted("ROLE_USER") %}
             <div id="reportlist"><a href="{{ path('app_report') }}">
-                    REPORT LIST
+                    REPORTS
                 </a></div>
             <div id="reportlist"><a href="{{ path('app_category') }}">
-                    Category List
+                    CATEGORIES
                 </a></div>
             <div id="reportlist"><a href="{{ path('app_role') }}">
-                    Role List
+                    ROLES
                 </a></div>
             <div id="reportlist"><a href="{{ path('app_shop') }}">
-                    Shop List
+                    SHOPS
                 </a></div>
             <div id="register"><a href="{{ path('app_register') }}">
                     REGISTER

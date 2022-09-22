@@ -75,6 +75,16 @@ input[type=text], input[type=email], input[type=password]{
     background-color: #F8F8F8;
 }
 
+.container#shopindex {
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 10%;
+    background-color: #F8F8F8;
+}
+
 a{
     text-decoration: none;
     color: #F8F8F8;
@@ -228,11 +238,68 @@ a:hover#backtohomepage, a:active#backtohomepage {
     cursor: pointer;
     font-size: 18px;
     text-decoration: none;
+    font-weight: bold;
 }
 
 .btn#delete:hover {
     background-color: #FF291E;
+}
+
+.btn#shopdelete{
+    background-color: #FF392E;
+    color: #F8F8F8;
+    padding: 7px 13px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    text-decoration: none;
+    text-align: center;
     font-weight: bold;
+}
+
+#contactbtn{
+    background-color: #009879;
+    color: #F8F8F8;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#contactbtn:hover{
+    background-color: seagreen;
+}
+
+#nocontactbtn{
+    background-color: #D3D3D3;
+    color: #F8F8F8;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    pointer-events: none;
+}
+
+h4{
+    color: #FF392E;
+    font-weight: bold;
+}
+
+.btn#shopdelete:hover{
+    background-color: #FF291E;
 }
 
 #show {
@@ -268,7 +335,6 @@ a:hover#backtohomepage, a:active#backtohomepage {
 
 #edit:hover {
     background-color: seagreen;
-    font-weight: bold;
 }
 
 #blueedit {
@@ -357,8 +423,5 @@ a:hover#backtohomepage, a:active#backtohomepage {
 .tablereport tbody tr:last-of-type {
     border-bottom: 2px solid #009879;
 }
-
-
-
 
 /*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYXBwLmNzcyIsIm1hcHBpbmdzIjoiOzs7QUFBQTtJQUNJLDJCQUEyQjtBQUMvQiIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL2Fzc2V0cy9zdHlsZXMvYXBwLmNzcyJdLCJzb3VyY2VzQ29udGVudCI6WyJib2R5IHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiBsaWdodGdyYXk7XG59XG4iXSwibmFtZXMiOltdLCJzb3VyY2VSb290IjoiIn0=*/
