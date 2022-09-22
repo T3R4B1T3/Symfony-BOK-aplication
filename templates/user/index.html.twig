@@ -19,6 +19,7 @@
                         {{ country.name}}<br><hr>
                     {% endfor %}
                 </td>
+                <td><a id="edit" href="{{ path('app_user_edit', {'id': user.id}) }}">EDIT</a></td>
                 <td>{{ include('user/delete.html.twig') }}</td>
             </tr>
         {% else %}
