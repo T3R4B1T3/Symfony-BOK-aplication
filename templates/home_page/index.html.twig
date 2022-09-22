@@ -19,6 +19,9 @@
             <div id="reportlist"><a href="{{ path('app_report') }}">
                     REPORTS
                 </a></div>
+        {% endif %}
+
+        {% if is_granted("ROLE_ADMIN") %}
             <div id="reportlist"><a href="{{ path('app_category') }}">
                     CATEGORIES
                 </a></div>
@@ -28,10 +31,14 @@
             <div id="reportlist"><a href="{{ path('app_shop') }}">
                     SHOPS
                 </a></div>
+            <div id="reportlist"><a href="{{ path('app_users') }}">
+                    USERS
+                </a></div>
             <div id="register"><a href="{{ path('app_register') }}">
                     REGISTER
                 </a></div>
         {% endif %}
+
         {% if app.user is not empty %}
             <div id="logout"><a href="{{ path('app_logout') }}">
                 LOGOUT
