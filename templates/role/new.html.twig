@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Role{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <p><button class="btn">{{ button_label|default('SAVE') }}</button></p>
+        <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}

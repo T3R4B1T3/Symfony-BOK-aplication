@@ -34,13 +34,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'User', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $UserId;
 
-    #[ORM\OneToMany(mappedBy: 'User', targetEntity: Role::class, orphanRemoval: true)]
-    private Collection $Roles;
+    #[ORM\ManyToMany(targetEntity: Role::class, inversedBy: 'users')]
+    private  $role;
+
 
     public function __construct()
     {
         $this->UserId = new ArrayCollection();
         $this->Roles = new ArrayCollection();
+        $this->role = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -75,9 +77,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $userRoles = $this->getRole();
+
+        foreach ($userRoles as $userRole){
+            $roles[] = $userRole->getName();
+        }
 
         return array_unique($roles);
     }
@@ -139,14 +143,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $userId->setUser(null);
             }
         }
-
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Role>
+     */
+    public function getRole(): Collection
+    {
+        return $this->role;
     }
 
     public function addRole(Role $role): self
     {
-        if (!$this->Roles->contains($role)) {
-            $this->Roles->add($role);
+        if (!$this->role->contains($role)) {
+            $this->role->add($role);
             $role->setUser($this);
         }
 
@@ -155,7 +166,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeRole(Role $role): self
     {
-        if ($this->Roles->removeElement($role)) {
+        if ($this->role->removeElement($role)) {
             // set the owning side to null (unless already changed)
             if ($role->getUser() === $this) {
                 $role->setUser(null);
@@ -164,4 +175,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
 }
