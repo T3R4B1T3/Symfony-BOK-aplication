@@ -17,6 +17,7 @@
         {% for role in roles %}
             <tr>
                 <td>{{ role.name }}</td>
+                <td><a id="edit" href="{{ path('app_role_edit', {'id': role.id}) }}">EDIT</a></td>
                 <td>{{ include('role/delete.html.twig') }}</td>
             </tr>
         {% else %}

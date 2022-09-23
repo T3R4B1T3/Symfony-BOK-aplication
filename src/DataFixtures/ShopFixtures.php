@@ -10,21 +10,17 @@ class ShopFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $values = [
-            "Does not apply for physical shop",
-            "Long Street 3",
-            "Third road 7",
-            "Station Road 6",
-            "High Street 6",
-            "Sixth Street 9"
+        $shopValueName = [
+            "Nie dotyczny sklepu stacjonarnego",
+            "Bałtycka 15",
+            "Koszalińska 22"
         ];
 
-        for($i = 0; $i < count($values); $i++){
+        for($i = 0; $i < count($shopValueName); $i++){
             $shop = new Shop();
-            $shop->setName($values[$i]);
+            $shop->setName($shopValueName[$i]);
             $manager->persist($shop);
         }
-
         $manager->flush();
     }
 }
