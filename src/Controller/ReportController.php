@@ -10,6 +10,7 @@ use App\Form\ReportType;
 use App\Repository\CommentRepository;
 use App\Repository\ReportLogRepository;
 use App\Repository\ReportRepository;
+use App\Repository\ShopRepository;
 use App\Repository\StateRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,9 +31,10 @@ class ReportController extends AbstractController
     }
 
     #[Route('/new', name: 'app_report_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ReportRepository $reportRepository, ReportLogRepository $reportLogRepository, StateRepository $stateRepository): Response
+    public function new(Request $request, ReportRepository $reportRepository, ReportLogRepository $reportLogRepository, StateRepository $stateRepository, ShopRepository $shopRepository): Response
     {
         $reportLog = new ReportLog();
+        $shop = $shopRepository->findAll();
 
         $report = new Report();
         $form = $this->createForm(ReportType::class, $report);
@@ -62,6 +64,7 @@ class ReportController extends AbstractController
 
         return $this->renderForm('report/new.html.twig', [
             'report' => $report,
+            'shop' => $shop,
             'form' => $form,
         ]);
     }
