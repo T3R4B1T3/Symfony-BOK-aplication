@@ -38,11 +38,12 @@ input[type=text], input[type=email], input[type=password]{
     cursor: pointer;
     font-size: 18px;
     text-decoration: none;
+    font-weight: bold;
+    text-align: center;
 }
 
 .btn:hover {
     background-color: dodgerblue;
-    font-weight: bold;
 }
 
 .container {
@@ -56,33 +57,19 @@ input[type=text], input[type=email], input[type=password]{
 }
 
 .container#reportindex {
-    max-width: 750px;
-    margin: 0 auto;
-    position: relative;
-    border-radius: 10px;
-    padding: 20px;
-    margin-top: 10%;
-    background-color: #F8F8F8;
+    max-width: 700px;
 }
 
 .container#showreport {
     max-width: 550px;
-    margin: 0 auto;
-    position: relative;
-    border-radius: 10px;
-    padding: 20px;
-    margin-top: 10%;
-    background-color: #F8F8F8;
 }
 
 .container#shopindex {
-    max-width: 1000px;
-    margin: 0 auto;
-    position: relative;
-    border-radius: 10px;
-    padding: 20px;
-    margin-top: 10%;
-    background-color: #F8F8F8;
+    max-width: 900px;
+}
+
+.container#categoryindex{
+    max-width: 430px;
 }
 
 a{
@@ -92,7 +79,7 @@ a{
     display: block;
 }
 
-a:link#backtohomepage, a:visited#backtohomepage {
+a:link#backtohomepage, a:visited#backtohomepage, #contactbtn, #nocontactbtn, #blueedit {
     background-color: #009879;
     color: #F8F8F8;
     text-align: center;
@@ -104,14 +91,14 @@ a:link#backtohomepage, a:visited#backtohomepage {
     border-radius: 4px;
     cursor: pointer;
     font-size: 12px;
-}
-
-a:hover#backtohomepage, a:active#backtohomepage {
-    background-color: seagreen;
     font-weight: bold;
 }
 
-#newreport {
+a:hover#backtohomepage, a:active#backtohomepage, #contactbtn:hover {
+    background-color: seagreen;
+}
+
+#newreport, #reportlist, #register, #login, #logout, #loginbtn {
     width: 80%;
     margin: 5%;
     background-color: cornflowerblue;
@@ -123,129 +110,39 @@ a:hover#backtohomepage, a:active#backtohomepage {
     font-size: 18px;
     text-decoration: none;
     text-align: center;
+    font-weight: bold;
 }
 
-#newreport:hover {
+#newreport:hover, #reportlist:hover, #show:hover, #blueedit:hover {
     background-color: dodgerblue;
-    font-weight: bold;
 }
 
-#reportlist {
-    width: 80%;
-    margin: 5%;
-    background-color: cornflowerblue;
-    color: #F8F8F8;
-    padding: 14px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 18px;
-    text-decoration: none;
-    text-align: center;
-}
-
-#reportlist:hover {
-    background-color: dodgerblue;
-    font-weight: bold;
-}
-
-#register {
-    width: 80%;
-    margin: 5%;
+#register, #login, #loginbtn {
     background-color: #009879;
-    color: #F8F8F8;
-    padding: 14px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 18px;
-    text-decoration: none;
-    text-align: center;
 }
 
-#register:hover {
+#register:hover, #login:hover, #loginbtn:hover, #edit:hover {
     background-color: seagreen;
-    font-weight: bold;
 }
 
-#login {
-    width: 80%;
-    margin: 5%;
-    background-color: #009879;
-    color: #F8F8F8;
-    padding: 14px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 18px;
-    text-decoration: none;
-    text-align: center;
-}
-
-#login:hover {
-    background-color: seagreen;
-    font-weight: bold;
-}
-
-#logout {
-    width: 80%;
-    margin: 5%;
+#logout, .btn#delete{
     background-color: #FF392E;
-    color: #F8F8F8;
-    padding: 14px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 18px;
-    text-decoration: none;
-    text-align: center;
 }
 
-#logout:hover {
+#logout:hover, .btn#delete:hover, .btn#entitydelete:hover {
     background-color: #FF291E;
-    font-weight: bold;
 }
 
 #loginbtn {
-    width: 80%;
     margin-left: 10%;
     margin-top: 5%;
-    background-color: #009879;
-    color: #F8F8F8;
-    padding: 14px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 18px;
-    text-decoration: none;
-    text-align: center;
-    font-weight: bold;
-}
-
-#loginbtn:hover {
-    background-color: seagreen;
-    font-weight: bold;
 }
 
 .btn#delete {
     width: 100%;
-    background-color: #FF392E;
-    color: #F8F8F8;
-    padding: 14px 20px;
-    margin-top: 1px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 18px;
-    text-decoration: none;
-    font-weight: bold;
 }
 
-.btn#delete:hover {
-    background-color: #FF291E;
-}
-
-.btn#shopdelete{
+.btn#entitydelete, #show, #edit{
     background-color: #FF392E;
     color: #F8F8F8;
     padding: 7px 13px;
@@ -256,102 +153,30 @@ a:hover#backtohomepage, a:active#backtohomepage {
     text-decoration: none;
     text-align: center;
     font-weight: bold;
-}
-
-#contactbtn{
-    background-color: #009879;
-    color: #F8F8F8;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-#contactbtn:hover{
-    background-color: seagreen;
 }
 
 #nocontactbtn{
     background-color: #D3D3D3;
-    color: #F8F8F8;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: bold;
     pointer-events: none;
+}
+
+#show{
+    background-color: cornflowerblue;
+}
+
+#edit{
+    background-color: #009879;
+}
+
+#blueedit{
+    background-color: cornflowerblue;
+    width: 93%;
+    font-size: 16px;
+    margin-top: -3px;
 }
 
 h4{
     color: #FF392E;
-    font-weight: bold;
-}
-
-.btn#shopdelete:hover{
-    background-color: #FF291E;
-}
-
-#show {
-    background-color: cornflowerblue;
-    color: #F8F8F8;
-    padding: 7px 13px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-    text-decoration: none;
-    text-align: center;
-    font-weight: bold;
-}
-
-#show:hover {
-    background-color: dodgerblue;
-    font-weight: bold;
-}
-
-#edit {
-    background-color: #009879;
-    color: #F8F8F8;
-    padding: 7px 13px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-    text-decoration: none;
-    text-align: center;
-    font-weight: bold;
-}
-
-#edit:hover {
-    background-color: seagreen;
-}
-
-#blueedit {
-    background-color: cornflowerblue;
-    color: #F8F8F8;
-    padding: 7px 13px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 18px;
-    text-decoration: none;
-    text-align: center;
-    font-weight: bold;
-}
-
-#blueedit:hover {
-    background-color: dodgerblue;
     font-weight: bold;
 }
 

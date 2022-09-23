@@ -90,11 +90,10 @@
             </tr>
             </tbody>
         </table>
-
         <a id="blueedit" href="{{ path('app_report_edit', {'id': report.id}) }}">EDIT</a>
-
+        <br>
         <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
-
+        <br><br>
         {{ form_start(form) }}
         {{ form_widget(form) }}
         <p><button class="btn">SUBMIT COMMENT</button></p>

@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container">
-    <h1>Register</h1>
+    <h1>Add user</h1>
 
         {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.username) }}
@@ -12,7 +12,7 @@
             label: 'Password'
         }) }}
         {{ form_row(registrationForm.role) }}
-        <button type="submit">REGISTER</button>
+        <button type="submit" id="loginbtn">ADD USER</button>
         {{ form_end(registrationForm) }}
     </div>
 {% endblock %}

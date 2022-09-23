@@ -3,6 +3,9 @@
 {% block title %}USERS LIST!{% endblock %}
 
 {% block body %}
+<div class="container" id="userindex">
+    <h1>User list</h1>
+
     <table class="table">
         <thead>
         <tr>
@@ -30,5 +33,6 @@
         </tbody>
 
     </table>
+    <a id="backtohomepage" href="{{ path('app_register') }}">ADD NEW USER</a>
     <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
 {% endblock %}

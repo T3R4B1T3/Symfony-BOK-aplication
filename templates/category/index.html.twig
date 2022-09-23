@@ -3,6 +3,9 @@
 {% block title %}Category LIST!{% endblock %}
 
 {% block body %}
+    <div class="container" id="categoryindex">
+    <h1>Category list</h1>
+
     <table class="table">
         <thead>
         <tr>
@@ -16,7 +19,7 @@
             <tr>
                 <td>{{ cat.name }}</td>
                 <td><a id="edit" href="{{ path('app_category_edit', {'id': cat.id}) }}">EDIT</a></td>
-                <td>  {{ include('category/delete.html.twig') }}</td>
+                <td> {{ include('category/delete.html.twig') }}</td>
             </tr>
         {% else %}
             <tr>
@@ -26,6 +29,6 @@
         </tbody>
 
     </table>
-    <p><a href="{{ path('app_category_new') }}">ADD NEW CATEGORY</a></p>
-    <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
+    <a id="backtohomepage" href="{{ path('app_category_new') }}">ADD NEW CATEGORY</a>
+        <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
 {% endblock %}
