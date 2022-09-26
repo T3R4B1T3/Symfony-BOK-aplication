@@ -12,11 +12,11 @@ class ShopFixtures extends Fixture
     {
         $values = [
             "Does not apply for physical shop",
-            "Long Street 3",
-            "Third road 7",
-            "Station Road 6",
-            "High Street 6",
-            "Sixth Street 9"
+            "Szczecińska 36i",
+            "Szczecińska 58",
+            "Arciszewkiego 22d",
+            "Jana Pawła 2",
+            "Portowa 13b"
         ];
 
         for($i = 0; $i < count($values); $i++){
