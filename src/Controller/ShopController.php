@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Shop;
 use App\Form\ShopType;
 use App\Repository\ShopRepository;
+use Doctrine\DBAL\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -50,11 +51,26 @@ class ShopController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_shop_delete', methods: ['POST'])]
+    /**
+     * @throws Exception
+     */
+    #[Route('/shop/{id}', name: 'app_shop_delete', methods: ['POST'])]
     public function delete(Request $request, Shop $shop, ShopRepository $shopRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $shop->getId(), $request->request->get('_token'))) {
-            $shopRepository->remove($shop, true);
+            $reportsPerShop = $shopRepository->findAllReportsPerShop($shop->getName());
+            if (!empty($reportsPerShop)) {
+                $message = "You need to remove all reports using this shop first." . PHP_EOL;
+                for ($i = 0; $i < count($reportsPerShop); $i++) {
+                    $message = $message . substr($reportsPerShop[$i]["description"], 0, 30) . "...   " .
+                        $reportsPerShop[$i]["report_date"] . PHP_EOL;
+                }
+                $this->addFlash('notice', $message);
+
+                return $this->redirectToRoute('app_shop');
+            } else {
+                $shopRepository->remove($shop, true);
+            }
         }
 
         return $this->redirectToRoute('app_shop', [], Response::HTTP_SEE_OTHER);

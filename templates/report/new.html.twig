@@ -8,13 +8,28 @@
         {{ form_widget(form) }}
 
         <iframe
+                hidden
+                id="frame"
                 height="100%"
                 width="100%"
                 style="border:0"
                 referrerpolicy="no-referrer-when-downgrade"
-                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAWYbUtGkXse9St7foTM8jvnH2NwAxJphw&q=Szczecińska 36i,Słupsk+Poland"
                 allowfullscreen>
         </iframe>
+
+        <script>
+            $('#report_shop option:nth-child(1)').attr('selected' , true);
+            $('#report_shop').change(function () {
+                let selectedVal = $("#report_shop option:selected");
+                let frame = $('#frame');
+                if (selectedVal.val() !== $('#report_shop option:nth-child(1)').val()) {
+                    frame.attr('hidden', false);
+                    frame.attr('src', "https://www.google.com/maps/embed/v1/place?key=AIzaSyAWYbUtGkXse9St7foTM8jvnH2NwAxJphw&q=" + selectedVal.text() + ",Słupsk+Poland");
+                } else {
+                    frame.attr('hidden', true);
+                }
+            });
+        </script>
 
         <input type="checkbox" name="checkbox" id="checkbox">
         <label for="checkbox">I agree to get notifications on these phone number and email address</label>
@@ -25,8 +40,8 @@
         <script type="text/javascript">
 
                 document.getElementById('report_phone_number').addEventListener('input', function (y) {
-                var a = y.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,3})/);
-                y.target.value = !a[2] ? a[1] :  a[1] + '-' + a[2] + (a[3] ? '-' + a[3] : '');
+                    let a = y.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,3})/);
+                    y.target.value = !a[2] ? a[1] :  a[1] + '-' + a[2] + (a[3] ? '-' + a[3] : '');
             });
         </script>
 

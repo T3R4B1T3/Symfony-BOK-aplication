@@ -4,31 +4,35 @@
 
 {% block body %}
     <div class="container" id="categoryindex">
-    <h1>Category list</h1>
+        <h1>Category list</h1>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th colspan="2">Actions</th>
-
-        </tr>
-        </thead>
-        <tbody>
-        {% for cat in categories %}
-            <tr>
-                <td>{{ cat.name }}</td>
-                <td><a id="edit" href="{{ path('app_category_edit', {'id': cat.id}) }}">EDIT</a></td>
-                <td> {{ include('category/delete.html.twig') }}</td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="2">no records found</td>
-            </tr>
+        {% for message in app.flashes('notice') %}
+            <p>{{ message }}</p>
         {% endfor %}
-        </tbody>
 
-    </table>
-    <a id="backtohomepage" href="{{ path('app_category_new') }}">ADD NEW CATEGORY</a>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th colspan="2">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for cat in categories %}
+                <tr>
+                    <td>{{ cat.name }}</td>
+                    <td><a id="edit" href="{{ path('app_category_edit', {'id': cat.id}) }}">EDIT</a></td>
+                    <td> {{ include('category/delete.html.twig') }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+        <a id="backtohomepage" href="{{ path('app_category_new') }}">ADD NEW CATEGORY</a>
         <a id="backtohomepage" href="{{ path('app_home_page') }}">HOMEPAGE</a>
+    </div>
 {% endblock %}

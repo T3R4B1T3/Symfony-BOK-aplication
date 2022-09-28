@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
+use Doctrine\DBAL\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,11 +54,26 @@ class CategoryController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws Exception
+     */
     #[Route('/cat/{id}', name: 'app_category_delete', methods: ['POST'])]
     public function delete(Request $request, Category $category, CategoryRepository $categoryRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $category->getId(), $request->request->get('_token'))) {
-            $categoryRepository->remove($category, true);
+            $reportsPerCategory = $categoryRepository->findAllReportsPerCategory($category->getName());
+            if (!empty($reportsPerCategory)) {
+                $message = "You need to remove all reports with this category first." . PHP_EOL;
+                for ($i = 0; $i < count($reportsPerCategory); $i++) {
+                    $message = $message . substr($reportsPerCategory[$i]["description"], 0, 30) . "...   " .
+                        $reportsPerCategory[$i]["report_date"] . PHP_EOL;
+                }
+                $this->addFlash('notice', $message);
+
+                return $this->redirectToRoute('app_category');
+            } else {
+                $categoryRepository->remove($category, true);
+            }
         }
 
         return $this->redirectToRoute('app_category', [], Response::HTTP_SEE_OTHER);

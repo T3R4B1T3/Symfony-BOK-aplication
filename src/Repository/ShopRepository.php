@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Shop;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -37,6 +38,25 @@ class ShopRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function findAllReportsPerShop($value): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT report.description, report.report_date
+FROM shop, report
+WHERE (shop.id = report.shop_id)
+AND shop.name = :shop';
+
+        $stmt = $conn->prepare($sql);
+
+        $resultSet = $stmt->executeQuery(['shop' => $value]);
+
+        return $resultSet->fetchAllAssociative();
     }
 
 //    /**

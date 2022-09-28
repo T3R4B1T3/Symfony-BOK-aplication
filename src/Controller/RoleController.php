@@ -53,7 +53,7 @@ class RoleController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_role_delete', methods: ['POST'])]
+    #[Route('/role/{id}', name: 'app_role_delete', methods: ['POST'])]
     public function delete(Request $request, Role $role, RoleRepository $roleRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $role->getId(), $request->request->get('_token'))) {
