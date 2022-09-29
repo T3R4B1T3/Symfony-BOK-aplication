@@ -63,12 +63,10 @@ class CategoryController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $category->getId(), $request->request->get('_token'))) {
             $reportsPerCategory = $categoryRepository->findAllReportsPerCategory($category->getName());
             if (!empty($reportsPerCategory)) {
-                $message = "You need to remove all reports with this category first." . PHP_EOL;
+                $this->addFlash('notice', "You need to remove all reports with this category first.");
                 for ($i = 0; $i < count($reportsPerCategory); $i++) {
-                    $message = $message . substr($reportsPerCategory[$i]["description"], 0, 30) . "...   " .
-                        $reportsPerCategory[$i]["report_date"] . PHP_EOL;
+                    $this->addFlash('notice', substr($reportsPerCategory[$i]["description"], 0, 40) . "...   ".$reportsPerCategory[$i]["report_date"]);
                 }
-                $this->addFlash('notice', $message);
 
                 return $this->redirectToRoute('app_category');
             } else {
