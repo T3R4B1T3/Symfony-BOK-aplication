@@ -6,6 +6,10 @@
 <div class="container" id="shopindex">
     <h1>Shop list</h1>
 
+    {% for message in app.flashes('notice') %}
+        {{ message }}
+    {% endfor %}
+
     <table class="table">
         <thead>
         <tr>

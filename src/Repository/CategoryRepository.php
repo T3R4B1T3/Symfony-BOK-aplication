@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -39,6 +40,25 @@ class CategoryRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @throws Exception
+     */
+    public function findAllReportsPerCategory($value): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT report.description, report.report_date
+FROM category, report
+WHERE (category.id = report.category_id)
+AND category.name = :category';
+
+        $stmt = $conn->prepare($sql);
+
+        $resultSet = $stmt->executeQuery(['category' => $value]);
+
+        return $resultSet->fetchAllAssociative();
+    }
+
 //    /**
 //     * @return CategoryFixtures[] Returns an array of CategoryFixtures objects
 //     */
@@ -51,16 +71,6 @@ class CategoryRepository extends ServiceEntityRepository
 //            ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?CategoryFixtures
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
 //        ;
 //    }
 }
