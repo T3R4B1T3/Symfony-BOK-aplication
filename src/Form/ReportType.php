@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Regex;
 use function Sodium\add;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 
 class ReportType extends AbstractType implements FormTypeInterface
 {
@@ -63,7 +64,9 @@ class ReportType extends AbstractType implements FormTypeInterface
             ->add('shop', EntityType::class, [
                 'class' => Shop::class,
                 'choice_label' => 'name',
-            ]);
+            ])
+
+            ->add('captcha', CaptchaType::class);
 
     }
 

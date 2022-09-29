@@ -7,6 +7,10 @@
 
         <h1>Report</h1>
 
+        {% if is_granted("ROLE_ADMIN") and report.UserAgreement == 0 %}
+            <h4>User doesn't agree for contacting him!</h4>
+        {% endif %}
+
         <table class="tablereport">
             <tbody>
             <tr>
@@ -84,6 +88,17 @@
                 <th>First read at</th>
                 <td>{{ report.ReportLog ? report.ReportLog.readdate|date('Y-m-d') : '' }}</td>
             </tr>
+
+            <tr>
+                <th>Shop</th>
+                <td>{{ report.shop.name }}</td>
+            </tr>
+
+            <tr>
+                <th>Category</th>
+                <td>{{ report.category.name }}</td>
+            </tr>
+
             <tr>
                 <th>Status</th>
                 <td>{{ report.ReportLog.state.name }}</td>
